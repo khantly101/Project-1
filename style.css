@@ -25,13 +25,18 @@ html, body {
 /*////////////////////////*/
 
 .card {
-/*	background-image: url("images/cardBack.jpg");
-	background-size: cover;
-	background-position: center;*/
-	border: 2px solid black;
+	background-image: url("images/blue_back.jpg");
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
 	border-radius: 15px;
 	height: 18vh;
 	width: 6vw;
+}
+
+.filler {
+	background: none;
+	border: 2px solid black;
 }
 
 /*////////////////////////*/
