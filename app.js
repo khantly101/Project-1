@@ -46,7 +46,7 @@ const drawCard = () => {
 	$.ajax({
 		url: cardApi + $(".deckId").text() + newDraw
 	}).then((card) => {
-		console.log(card)
+		$(".cardId").text(card.cards[0].code)
 	}, (error) => {
 		console.error(error)
 	})
@@ -64,17 +64,28 @@ const addPile = (name, card) => {
 	}, (error) => {
 		console.error(error)
 	})
+}
+
+const pileList = (name) => {
+
+	const pileUrl = `/pile/${name}/list`
+
+	$.ajax({
+		url: cardApi + $(".deckId").text() + pileUrl
+	}).then((card) => {
+		console.log(card)
+	}, (error) => {
+		console.error(error)
+	})
 
 }
 
-// const draw3 = () => {
+const startGame = () => {
 
-// 	addPile("row1Shown", drawn[0][code])
-// 	console.log(pile)
+	drawCard()
+	addPile("row1", $(".cardId").text())
 
-// }
-
-
+}
 
 $(()=>{
 
