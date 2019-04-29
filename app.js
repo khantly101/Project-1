@@ -6,6 +6,8 @@ const rows = ["filler", "row1", "row2", "row3", "row4", "row5", "row6", "row7"]
 
 let deckId
 let drawn 
+let pile
+
 
 ////////////////////////
 // Card Api funtions //
@@ -16,7 +18,8 @@ let drawn
 const getDeck = async () => {
 
 	let response = await fetch(cardApi + newDeck)
-	deckId = await response.json()
+	let result = await response.json()
+	deckId = result.deck_id
 
 }	
 
@@ -24,7 +27,7 @@ const drawCard = async () => {
 
 	const newDraw = `/draw/?count=1`
 
-	let response = await fetch(cardApi + deckId.deck_id + newDraw)
+	let response = await fetch(cardApi + deckId + newDraw)
 	drawn = await response.json()
 
 }
@@ -33,9 +36,9 @@ const addPile = async (name, card) => {
 
 	const pileName = `/pile/${name}/add/?cards=${card}`
 
-	let response = await fetch(cardApi + deckId.deck_id + pileName)
+	let response = await fetch(cardApi + deckId + pileName)
 	let report = response.json()
-	console.log(await report)
+	$(`#${name}`).append($(`#${card}`))
 
 
 }
@@ -44,15 +47,13 @@ const pileList = async (name) => {
 
 	const pileUrl = `/pile/${name}/list`
 
-	let response = await fetch(cor + cardApi + deckId.deck_id + pileUrl)
-	let report = response.json()
-	console.log(await report)
+	let response = await fetch(cor + cardApi + deckId + pileUrl)
+	let result = await response.json()
+	pile = result.piles[name].cards
+	
 
 
 }
-
-
-const pileUrl = `/pile/${name}/list`
 
 const startGame = async () => {
 
