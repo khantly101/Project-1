@@ -38,12 +38,12 @@ html, body {
 /*Deck and card drawn area*/
 /*////////////////////////*/
 
-.deck {
+.UndrawnPile {
 	background-color: gray;
 	width: 10%;
 }
 
-#undrawn {
+#deck {
 	margin: 25% auto;
 }
 

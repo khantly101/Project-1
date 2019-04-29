@@ -13,8 +13,6 @@ let pile
 // Card Api funtions //
 ///////////////////////
 
-
-
 const getDeck = async () => {
 
 	let response = await fetch(cardApi + newDeck)
@@ -28,7 +26,8 @@ const drawCard = async () => {
 	const newDraw = `/draw/?count=1`
 
 	let response = await fetch(cardApi + deckId + newDraw)
-	drawn = await response.json()
+	result = await response.json()
+	drawn = result.cards[0].code
 
 }
 
@@ -38,6 +37,7 @@ const addPile = async (name, card) => {
 
 	let response = await fetch(cardApi + deckId + pileName)
 	let report = response.json()
+	$(`#${card}`).removeClass("hidden")
 	$(`#${name}`).append($(`#${card}`))
 
 
@@ -51,9 +51,28 @@ const pileList = async (name) => {
 	let result = await response.json()
 	pile = result.piles[name].cards
 	
+}
 
+
+////////////////////////
+// Render //
+///////////////////////
+
+const checkPile = async (name, box) => {
+
+	await pileList(name)
+	if (pile.length === 0) {
+		$(`#${box}`).css("background-image", `url(${pile[pile.length -1].images.png})`)
+	} else {
+		$(`#${box}`).css("background-image", `url(images/cardBack.jpg)`)
+	}
 
 }
+
+
+////////////////////////
+// Start Game Function //
+///////////////////////
 
 const startGame = async () => {
 
@@ -62,7 +81,7 @@ const startGame = async () => {
 	for (let i = 1; i < 8; i+=1) {
 		for (let e = 0; e < i; e+=1) {
 			await drawCard()
-			addPile(rows[i], drawn.cards[0].code)
+			addPile(rows[i], drawn)
 			// await pileList(rows[i])
 		}
 
@@ -70,15 +89,20 @@ const startGame = async () => {
 
 	for (let i = 0; i < 24; i+=1) {
 			await drawCard()
-			addPile("deck", drawn.cards[0].code)
+			addPile("deck", drawn)
+			$(`#${drawn}`).css("display", "none")
 			// await pileList("deck")
 	}
 
 
 }
 
+
+////////////////////////
+// Ready funtion //
+///////////////////////
+
 $(()=>{
 
-	// getDeck()
 
 })
