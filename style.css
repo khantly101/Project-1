@@ -25,7 +25,11 @@ html, body {
 /*////////////////////////*/
 
 .card {
-	background-color: white;
+/*	background-image: url("images/cardBack.jpg");
+	background-size: cover;
+	background-position: center;*/
+	border: 2px solid black;
+	border-radius: 15px;
 	height: 18vh;
 	width: 6vw;
 }

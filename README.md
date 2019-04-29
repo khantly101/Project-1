@@ -27,4 +27,4 @@ extra
 -add animation
 -add auto win
 -add more card games
--
+-add local storage for games
