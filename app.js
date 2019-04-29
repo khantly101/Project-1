@@ -1,94 +1,83 @@
 const cardApi = "https://deckofcardsapi.com/api/deck/"
 const newDeck = "new/shuffle/?deck_count=1"
-// const pileName = {
-// 				deck 		: "deck", 
-// 				drawn		: "drawn",
-// 				row1 		: "row1",
-// 				row1Shown 	: "row1Shown",
-// 				row2		: "row2",
-// 				row2Shown 	: "row2Shown",
-// 				row3		: "row3",
-// 				row3Shown	: "row3Shown",
-// 				row4		: "row4",
-// 				row4Shown 	: "row4Shown",
-// 				row5		: "row5",
-// 				row5Shown 	: "row5Shown",
-// 				row6		: "row6",
-// 				row6Shown	: "row6Shown",	
-// 				row7		: "row7",
-// 				row7Shown 	: "row7Shown",
-// 				firstPile 	: "firstPile",
-// 				secondPile	: "secondPile",
-// 				thirdPile 	: "thirdPile",
-// 				fourthPile	: "fourthPile"
-// 				}
+const cor = "https://cors-anywhere.herokuapp.com/"
+
+const rows = ["filler", "row1", "row2", "row3", "row4", "row5", "row6", "row7"]
+
+let deckId
+let drawn 
 
 ////////////////////////
 // Card Api funtions //
 ///////////////////////
 
-const getDeck = () => {
 
-	$.ajax({
-		url: cardApi + newDeck
-	}).then((deck) => {
-		$(".deckId").text(deck.deck_id)
-	}, (error) => {
-		console.error(error)
-	})
 
-}
+const getDeck = async () => {
 
-const drawCard = () => {
+	let response = await fetch(cardApi + newDeck)
+	deckId = await response.json()
+
+}	
+
+const drawCard = async () => {
 
 	const newDraw = `/draw/?count=1`
 
-	$.ajax({
-		url: cardApi + $(".deckId").text() + newDraw
-	}).then((card) => {
-		$(".cardId").text(card.cards[0].code)
-	}, (error) => {
-		console.error(error)
-	})
+	let response = await fetch(cardApi + deckId.deck_id + newDraw)
+	drawn = await response.json()
 
 }
 
-const addPile = (name, card) => {
+const addPile = async (name, card) => {
 
 	const pileName = `/pile/${name}/add/?cards=${card}`
 
-	$.ajax({
-		url: cardApi + $(".deckId").text() + pileName
-	}).then((card) => {
-		console.log(card)
-	}, (error) => {
-		console.error(error)
-	})
+	let response = await fetch(cardApi + deckId.deck_id + pileName)
+	let report = response.json()
+	console.log(await report)
+
+
 }
 
-const pileList = (name) => {
+const pileList = async (name) => {
 
 	const pileUrl = `/pile/${name}/list`
 
-	$.ajax({
-		url: cardApi + $(".deckId").text() + pileUrl
-	}).then((card) => {
-		console.log(card)
-	}, (error) => {
-		console.error(error)
-	})
+	let response = await fetch(cor + cardApi + deckId.deck_id + pileUrl)
+	let report = response.json()
+	console.log(await report)
+
 
 }
 
-const startGame = () => {
 
-	drawCard()
-	addPile("row1", $(".cardId").text())
+const pileUrl = `/pile/${name}/list`
+
+const startGame = async () => {
+
+	await getDeck()
+
+	for (let i = 1; i < 8; i+=1) {
+		for (let e = 0; e < i; e+=1) {
+			await drawCard()
+			addPile(rows[i], drawn.cards[0].code)
+			// await pileList(rows[i])
+		}
+
+	}
+
+	for (let i = 0; i < 24; i+=1) {
+			await drawCard()
+			addPile("deck", drawn.cards[0].code)
+			// await pileList("deck")
+	}
+
 
 }
 
 $(()=>{
 
-	getDeck()
+	// getDeck()
 
 })
