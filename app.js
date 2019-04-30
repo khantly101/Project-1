@@ -37,7 +37,7 @@ const addPile = async (name, card) => {
 
 	let response = await fetch(cardApi + deckId + pileName)
 	let report = response.json()
-	$(`#${card}`).removeClass("hidden").addClass("inPlay")
+	$(`#${card}`).removeClass("hidden")
 	$(`#${name}`).append($(`#${card}`))
 
 }
@@ -93,6 +93,38 @@ const cardDrop = (event, ui) => {
 
 }
 
+const addDroppable = () => {
+
+		$(`#${rows[i]}`).droppable({
+			accept: "#KH, #KD, #KS, #KC",
+			drop: cardDrop
+		})
+		if ($(`#${drawn}`).hasClass("black")) {
+			$(`#${drawn}`).droppable({
+				accept: ".card:not(.black)",
+				drop:cardDrop
+			})
+		} else {
+			$(`#${drawn}`).droppable({
+				accept: ".card:not(.red)",
+				drop:cardDrop
+			})
+		}
+
+}
+
+
+// const dropCheckBlack = (event, ui) => {
+// 	if ($(event.target).hasClass("red")) {
+// 		return true
+// 	}
+// }
+
+// const dropCheckRed = (event, ui) => {
+// 	if ($(event.target).hasClass("black")) {
+// 		return true
+// 	}
+// }
 
 ////////////////////////
 // Start Game Function //
@@ -109,15 +141,13 @@ const startGame = async () => {
 			await drawCard()
 			addPile(rows[i], drawn)
 		}
-		$(`#${rows[i]}`).droppable({
-			drop: cardDrop
-		})
+
 		$(`#${drawn}`).css("background-image", `url(images/${drawn}.jpg)`).draggable({
 				containment: ".gameboard",
 				snap: ".gameboard",
 				revert: true,
 				revertDuration: 0
-			})
+		})
 	}
 
 

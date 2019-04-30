@@ -33,15 +33,13 @@ html, body {
 	height: 18vh;
 	width: 6vw;
 	margin: 0 auto;
+	padding-top: 50%;
+	margin-bottom: -110%
 }
 
 .filler {
 	background: none;
 	border: 2px solid black;
-}
-
-.inPlay {
-	margin-bottom: -110%;
 }
 
 /*////////////////////////*/
