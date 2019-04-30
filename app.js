@@ -84,6 +84,17 @@ const setDeck = async () => {
 
 
 ////////////////////////
+// Draggable Function //
+///////////////////////
+
+const cardDrop = (event, ui) => {
+
+	$(event.target).append(ui.draggable)
+
+}
+
+
+////////////////////////
 // Start Game Function //
 ///////////////////////
 
@@ -98,9 +109,14 @@ const startGame = async () => {
 			await drawCard()
 			addPile(rows[i], drawn)
 		}
+		$(`#${rows[i]}`).droppable({
+			drop: cardDrop
+		})
 		$(`#${drawn}`).css("background-image", `url(images/${drawn}.jpg)`).draggable({
 				containment: ".gameboard",
-				snap: ".gameboard"
+				snap: ".gameboard",
+				revert: true,
+				revertDuration: 0
 			})
 	}
 
