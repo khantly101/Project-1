@@ -32,11 +32,16 @@ html, body {
 	border-radius: 15px;
 	height: 18vh;
 	width: 6vw;
+	margin: 0 auto;
 }
 
 .filler {
 	background: none;
 	border: 2px solid black;
+}
+
+.inPlay {
+	margin-bottom: -110%;
 }
 
 /*////////////////////////*/
@@ -50,21 +55,10 @@ html, body {
 
 #deck {
 	margin: 25% auto;
-}
-
-#draw1 {
-	margin: auto;
-	background-color: blue;
-}
-
-#draw2 {
-	margin: -60% auto;
-	background-color: red;
-}
-
-#draw3 {
-	margin: auto;
-	background-color: green;
+	background-image: url(images/blue_back.jpg);
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
 }
 
 /*////////////////////////*/
@@ -79,10 +73,13 @@ html, body {
 
 .play {
 	margin: 3%;
+	margin-bottom: -110%;
 }
 
 .row {
 	margin: 3%;
+	width: 14%;
+	border: 2px solid black;
 }
 
 /*////////////////////////*/

@@ -3,7 +3,6 @@ const newDeck = "new/shuffle/?deck_count=1"
 const cor = "https://cors-anywhere.herokuapp.com/"
 
 const rows = ["filler", "row1", "row2", "row3", "row4", "row5", "row6", "row7"]
-const fillerId = ["filler", "play1", "play2", "play3", "play4", "play5", "play6", "play7", ]
 
 let deckId
 let drawn 
@@ -38,9 +37,8 @@ const addPile = async (name, card) => {
 
 	let response = await fetch(cardApi + deckId + pileName)
 	let report = response.json()
-	$(`#${card}`).removeClass("hidden")
+	$(`#${card}`).removeClass("hidden").addClass("inPlay")
 	$(`#${name}`).append($(`#${card}`))
-
 
 }
 
@@ -59,20 +57,17 @@ const pileList = async (name) => {
 // Render //
 ///////////////////////
 
-const checkRow = async (box, row) => {
+const checkRow = async (box) => {
 
 	if (pile.length > 0) {
-		$(`#${row}`).hide()
 		$(`#${box}`).css("background-image", `url(images/${box}.jpg)`)
-	} else {
-		$(`#${row}`).css("display", "block")
-	}
+	} 
 }
 
 const setRow = async () => {
 
 	for (let i = 1; i < 8; i+=1) {
-		await pileList(rows[i], rows[i])
+		await pileList(rows[i])
 		await checkRow(pile[pile.length -1].code, fillerId[i])
 	}
 
@@ -96,24 +91,25 @@ const startGame = async () => {
 
 	await getDeck()
 
+	$(`#deck`).css("background-image", `url(images/blue_back.jpg)`)
+
 	for (let i = 1; i < 8; i+=1) {
 		for (let e = 0; e < i; e+=1) {
 			await drawCard()
 			addPile(rows[i], drawn)
 		}
-		await pileList(rows[i])
-		await checkRow(pile[pile.length -1].code, fillerId[i])
+		$(`#${drawn}`).css("background-image", `url(images/${drawn}.jpg)`).draggable({
+				containment: ".gameboard",
+				snap: ".gameboard"
+			})
 	}
 
-	// setRow()
 
 	for (let i = 0; i < 24; i+=1) {
 			await drawCard()
 			addPile("deck", drawn)
 			$(`#${drawn}`).css("display", "none")
-			// await pileList("deck")
 	}
-
 
 }
 
