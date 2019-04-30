@@ -8,6 +8,56 @@ let deckId
 let drawn 
 let pile
 
+const cardSet = { 
+				 	"2C" : "#AD, #AH",
+				 	"2S" : "#AD, #AH",
+				 	"2D" : "#AC, #AS",
+					"2H" : "#AC, #AS",  
+				 	"3C" : "#2D, #2H",
+				 	"3S" : "#2D, #2H",
+				 	"3D" : "#2C, #2S",
+					"3H" : "#2C, #2S", 
+					"4C" : "#3D, #3H",
+					"4S" : "#3D, #3H", 
+					"4D" : "#3C, #3S",
+					"4H" : "#3C, #3S", 
+					"5C" : "#4D, #4H",
+					"5S" : "#4D, #4H", 
+					"5D" : "#4C, #4S",
+					"5H" : "#4C, #4S",
+					"6C" : "#5D, #5H",
+					"6S" : "#5D, #5H",
+					"6D" : "#5C, #5S",
+					"6H" : "#5C, #5S",  
+					"7C" : "#6D, #6H",
+					"7S" : "#6D, #6H",
+					"7D" : "#6C, #6S",
+					"7H" : "#6C, #6S",
+					"8C" : "#7D, #7H",
+					"8S" : "#7D, #7H", 
+					"8D" : "#7C, #7S",
+				 	"8H" : "#7C, #7S", 
+					"9C" : "#8D, #8H",
+					"9S" : "#8D, #8H",
+					"9D" : "#8C, #8S",
+				 	"9H" : "#8C, #8S", 
+					"0C" : "#9D, #9H",
+					"0S" : "#9D, #9H",
+					"0D" : "#9C, #9S",
+				 	"0H" : "#9C, #9S", 
+					"JC" : "#0D, #0H",
+					"JS" : "#0D, #0H", 
+					"JD" : "#0C, #0S",
+				 	"JH" : "#0C, #0S",
+					"QC" : "#JD, #JH",
+					"QS" : "#JD, #JH", 
+					"QD" : "#JC, #JS",
+				 	"QH" : "#JC, #JS", 
+					"KC" : "#QD, #QH",
+					"KS" : "#QD, #QH",
+					"KD" : "#QC, #QS",
+				 	"KH" : "#QC, #QS"}
+
 
 ////////////////////////
 // Card Api funtions //
@@ -93,38 +143,22 @@ const cardDrop = (event, ui) => {
 
 }
 
-const addDroppable = () => {
+const addDroppableRow = (i) => {
 
-		$(`#${rows[i]}`).droppable({
-			accept: "#KH, #KD, #KS, #KC",
-			drop: cardDrop
-		})
-		if ($(`#${drawn}`).hasClass("black")) {
-			$(`#${drawn}`).droppable({
-				accept: ".card:not(.black)",
-				drop:cardDrop
-			})
-		} else {
-			$(`#${drawn}`).droppable({
-				accept: ".card:not(.red)",
-				drop:cardDrop
-			})
-		}
-
+	$(`#${rows[i]}`).droppable({
+		accept: "#KH, #KD, #KS, #KC",
+		drop: cardDrop
+	})
 }
 
+const addDroppableCard = () => {
 
-// const dropCheckBlack = (event, ui) => {
-// 	if ($(event.target).hasClass("red")) {
-// 		return true
-// 	}
-// }
+	$(`#${drawn}`).droppable({
+		accept: cardSet[drawn],
+		drop: cardDrop
+	})
 
-// const dropCheckRed = (event, ui) => {
-// 	if ($(event.target).hasClass("black")) {
-// 		return true
-// 	}
-// }
+}
 
 ////////////////////////
 // Start Game Function //
@@ -141,6 +175,8 @@ const startGame = async () => {
 			await drawCard()
 			addPile(rows[i], drawn)
 		}
+		addDroppableRow(i)
+		addDroppableCard()
 
 		$(`#${drawn}`).css("background-image", `url(images/${drawn}.jpg)`).draggable({
 				containment: ".gameboard",
