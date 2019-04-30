@@ -81,14 +81,24 @@ const drawCard = async () => {
 
 }
 
-const addPile = async (name, card) => {
+const addPileDeck = async (card) => {
+
+	const pileName = `/pile/deck/add/?cards=${card}`
+
+	let response = await fetch(cardApi + deckId + pileName)
+
+}
+
+const addPileRow = async (name, card) => {
 
 	const pileName = `/pile/${name}/add/?cards=${card}`
 
 	let response = await fetch(cardApi + deckId + pileName)
 	let report = response.json()
-	$(`#${card}`).removeClass("hidden")
-	$(`#${name}`).append($(`#${card}`))
+	
+	const newCard = $("<div>").addClass("card").attr("id", card)
+
+	$(`#${name}`).append(newCard)
 
 }
 
@@ -153,11 +163,14 @@ const addDroppableRow = (i) => {
 
 const addDroppableCard = () => {
 
-	$(`#${drawn}`).droppable({
-		accept: cardSet[drawn],
-		drop: cardDrop
-	})
+	if (["AH", "AD", "AS", "AC"].includes($(`#${drawn}`).attr("id"))) {
 
+	} else {
+		$(`#${drawn}`).droppable({
+			accept: cardSet[drawn],
+			drop: cardDrop
+		})
+	}
 }
 
 ////////////////////////
@@ -173,7 +186,7 @@ const startGame = async () => {
 	for (let i = 1; i < 8; i+=1) {
 		for (let e = 0; e < i; e+=1) {
 			await drawCard()
-			addPile(rows[i], drawn)
+		 	await addPileRow(rows[i], drawn)
 		}
 		addDroppableRow(i)
 		addDroppableCard()
@@ -189,7 +202,7 @@ const startGame = async () => {
 
 	for (let i = 0; i < 24; i+=1) {
 			await drawCard()
-			addPile("deck", drawn)
+			addPileDeck(drawn)
 			$(`#${drawn}`).css("display", "none")
 	}
 
