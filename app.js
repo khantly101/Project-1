@@ -325,6 +325,7 @@ const resetDeck = async () => {
 
 	await pileList("drawn")
 
+	
 	for (let i = pile.length -1; i >= 0; i+=0) {
 		if (i >= 2) {
 			cardCounter += "," + pile[i-2].code + "," + pile[i-1].code + "," + pile[i].code
@@ -348,7 +349,12 @@ const showDrawn = async () => {
 	$("#drawn").empty()
 
 	if (pile.length === 0) {
-		await resetDeck()
+		await pileList("drawn")
+		if (pile.length > 0) {
+			await resetDeck()
+		} else {
+			return
+		}
 	}
 
 	if (pile.length > drawNum) {
