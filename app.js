@@ -98,7 +98,7 @@ const addPileRow = async (name, card, target) => {
 	
 	const newCard = $("<div>").addClass("card").attr("id", card)
 
-	$(`#${target}`).append(newCard).droppable()
+	$(`#${target}`).append(newCard).droppable().on("click", setFace)
 
 }
 
@@ -142,6 +142,22 @@ const setDeck = async () => {
 	}
 }
 
+const setFace = () => {
+
+	let id = $(event.target).attr("id")
+	if ($(event.target).prop("flippable") === true) {
+			$(`#${id}`).css("background-image", `url(images/${id}.jpg)`).draggable({
+				containment: ".gameboard",
+				snap: ".gameboard",
+				revert: true,
+				revertDuration: 0
+		}).droppable({
+			accept: cardSet[id],
+			drop: cardDrop
+		})
+	}
+
+}
 
 ////////////////////////
 // Draggable Function //
@@ -149,8 +165,13 @@ const setDeck = async () => {
 
 const cardDrop = (event, ui) => {
 
-	if (ui.draggable.parent().length === 1) {
-		ui.draggable.parent().droppable("enable")
+	let parent = ui.draggable.parent()
+
+	if (parent.length === 1) {
+		parent.droppable("enable")
+	}
+	if (parent.hasClass("card")) {
+		parent.prop("flippable", true)
 	}
 	$(event.target).append(ui.draggable)
 	$(event.target).droppable("disable")
