@@ -482,7 +482,17 @@ const winCondition = () => {
 // Start Game Function //
 ///////////////////////
 
+const clearBoard = () => {
+
+	$("#drawn").empty()
+	$(".row").empty()
+	$(".stacks").empty()
+
+}
+
 const startGame = async () => {
+
+	clearBoard()
 
 	await getDeck()
 
