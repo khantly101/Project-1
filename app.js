@@ -7,6 +7,7 @@ const rows = ["filler", "row1", "row2", "row3", "row4", "row5", "row6", "row7"]
 let deckId
 let drawn 
 let pile
+let drawnList = []
 let drawNum = 3
 
 const cardSet = { 
@@ -95,13 +96,25 @@ const addPileRow = async (name, card, target) => {
 	const pileName = `/pile/${name}/add/?cards=${card}`
 
 	let response = await fetch(cardApi + deckId + pileName)
-	let report = response.json()
 	
 	const newCard = $("<div>").addClass("card").attr("id", card)
 
 	$(`#${target}`).append(newCard).droppable().on("click", setFace)
 
 }
+
+const addPileDrawn = async (card, target) => {
+
+	const pileDrawn = `/pile/drawn/add/?cards=${card}`
+
+	let response = await fetch(cardApi + deckId + pileDrawn)
+	
+	const newCard = $("<div>").addClass("card").attr("id", card).css("background-image", `url(images/${card}.jpg)`).droppable().addClass("drawn")
+
+	$(`#${target}`).append(newCard).droppable()
+
+}
+
 
 const pileList = async (name) => {
 
@@ -174,6 +187,15 @@ const cardDrop = (event, ui) => {
 	if (parent.hasClass("card")) {
 		parent.prop("flippable", true)
 	}
+	if (parent.hasClass("drawn")) {
+		parent.draggable({
+				containment: ".gameboard",
+				snap: ".gameboard",
+				revert: true,
+				revertDuration: 0
+		})
+		drawnList.pop()
+	}
 	$(event.target).append(ui.draggable)
 	$(event.target).droppable("disable")
 }
@@ -211,28 +233,45 @@ const drawPile = async (num) => {
 }
 
 const showDrawn = async () => {
-
+	$("#drawn").empty()
 	await drawPile(drawNum)
+	drawn.forEach((ele) => {
+		drawnList.push(ele.code)
+	})
 	for (let i = 0; i < drawn.length; i+=1) {
-
-		const $div = $("<div>").addClass("card").attr("id", drawn[i].code).css("background-image", `url(images/${drawn[i].code}.jpg)`)
-
 		if (i === 0) {
-			$("#drawn").append($div).droppable()
+			await addPileDrawn(drawn[i].code, "drawn")
 		} else {
-			$(`#${drawn[i - 1].code}`).append($div).droppable()
+			await addPileDrawn(drawn[i].code, drawn[i - 1].code)
 		}
 	}
 
-	$(`#${drawn[drawn.length -1].code}`).draggable({
-			containment: ".gameboard",
-			snap: ".gameboard",
-			revert: true,
-			revertDuration: 0
+	$(`#${drawn[drawn.length - 1].code}`).draggable({
+				containment: ".gameboard",
+				snap: ".gameboard",
+				revert: true,
+				revertDuration: 0
 		})
+
+
 }
 
+const checkDraw = () => {
 
+	if (drawnList.length > drawNum) {
+
+		if($("#drawn").children().length === 0) {
+
+			const $div = $("<div>").addClass("card").attr("id", card).css("background-image", `url(images/${card}.jpg)`).droppable().addClass("drawn")
+
+			
+
+			drawnList[drawnList.length - 1]
+		}
+
+	}
+
+}
 
 
 
