@@ -5,9 +5,9 @@ const cor = "https://cors-anywhere.herokuapp.com/"
 const rows = ["filler", "row1", "row2", "row3", "row4", "row5", "row6", "row7"]
 
 let deckId
-let drawn 
-let pile
-let drawnList = []
+let drawn = []
+let pile = []
+let cardCounter = ""
 let drawNum = 3
 
 const cardSet = { 
@@ -78,7 +78,7 @@ const drawCard = async (num) => {
 	const newDraw = `/draw/?count=${num}`
 
 	let response = await fetch(cardApi + deckId + newDraw)
-	result = await response.json()
+	let result = await response.json()
 	drawn = result.cards
 
 }
@@ -96,9 +96,8 @@ const addPileRow = async (name, card, target) => {
 	const pileName = `/pile/${name}/add/?cards=${card}`
 
 	let response = await fetch(cardApi + deckId + pileName)
-	
-	const newCard = $("<div>").addClass("card").attr("id", card)
 
+	const newCard = $("<div>").addClass("card").attr("id", card)
 	$(`#${target}`).append(newCard).droppable().on("click", setFace)
 
 }
@@ -110,7 +109,6 @@ const addPileDrawn = async (card, target) => {
 	let response = await fetch(cardApi + deckId + pileDrawn)
 	
 	const newCard = $("<div>").addClass("card").attr("id", card).css("background-image", `url(images/${card}.jpg)`).droppable().addClass("drawn")
-
 	$(`#${target}`).append(newCard).droppable()
 
 }
@@ -180,6 +178,7 @@ const setFace = () => {
 const cardDrop = (event, ui) => {
 
 	let parent = ui.draggable.parent()
+	let id = parent.attr("id")
 
 	if (parent.length === 1) {
 		parent.droppable("enable")
@@ -193,9 +192,12 @@ const cardDrop = (event, ui) => {
 				snap: ".gameboard",
 				revert: true,
 				revertDuration: 0
+		}).droppable({
+			accept: cardSet[id],
+			drop: cardDrop
 		})
-		drawnList.pop()
 	}
+
 	$(event.target).append(ui.draggable)
 	$(event.target).droppable("disable")
 }
@@ -228,16 +230,43 @@ const drawPile = async (num) => {
 	const drawDeck = `/pile/deck/draw/?count=${num}`
 
 	let response = await fetch(cardApi + deckId + drawDeck) 
-	result = await response.json()
+	let result = await response.json()
 	drawn = result.cards
 }
 
+const drawDrawn = async (num) => {
+
+	const drawDeck = `/pile/drawn/draw/?cards=${num}`
+
+	let response = await fetch(cardApi + deckId + drawDeck)
+	let result = await response.json()
+	drawn = result.cards
+}
+
+const resetDeck = async (cards) => {
+
+	await pileList("drawn")
+	await drawDrawn(pile.length)
+	await addPileDeck(cards)
+	await pileList("deck")
+}
+
 const showDrawn = async () => {
+
 	$("#drawn").empty()
-	await drawPile(drawNum)
-	drawn.forEach((ele) => {
-		drawnList.push(ele.code)
-	})
+
+	if (pile.length === 0) {
+		await resetDeck(cardCounter)
+	}
+
+	if (pile.length > drawNum) {
+		await drawPile(drawNum)
+	} else {
+		await drawPile(pile.length)
+	}
+
+	cardCounter = drawn[0].code + "," + drawn[1].code + "," + drawn[2].code + "," + cardCounter
+
 	for (let i = 0; i < drawn.length; i+=1) {
 		if (i === 0) {
 			await addPileDrawn(drawn[i].code, "drawn")
@@ -251,30 +280,15 @@ const showDrawn = async () => {
 				snap: ".gameboard",
 				revert: true,
 				revertDuration: 0
+		}).droppable({
+			accept: cardSet[drawn[drawn.length - 1].code],
+			drop: cardDrop
 		})
 
+	await pileList("deck")
+	await setDeck()
 
 }
-
-const checkDraw = () => {
-
-	if (drawnList.length > drawNum) {
-
-		if($("#drawn").children().length === 0) {
-
-			const $div = $("<div>").addClass("card").attr("id", card).css("background-image", `url(images/${card}.jpg)`).droppable().addClass("drawn")
-
-			
-
-			drawnList[drawnList.length - 1]
-		}
-
-	}
-
-}
-
-
-
 
 
 ////////////////////////
@@ -311,6 +325,8 @@ const startGame = async () => {
 	for (let i = 0; i < 24; i+=1) {
 			addPileDeck(drawn[i].code)
 	}
+
+	await pileList("deck")
 
 }
 
