@@ -18,13 +18,13 @@ https://deckofcardsapi.com/
 To do
 -Basic framework for solitaire
 -add timer
--add undo button
--add restart button
 -add local storage for scores and times
--add keyboard functionality
 
 extra
 -add animation
 -add auto win
 -add more card games
 -add local storage for games
+-add undo button
+-add restart button
+-add keyboard functionality
