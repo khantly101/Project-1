@@ -59,6 +59,13 @@ html, body {
 	background-position: center;
 }
 
+#drawn {
+	height: 25vh;
+	margin-bottom: 0;
+	padding-top: 0;
+	border: none;
+}
+
 /*////////////////////////*/
 /*Play area*/
 /*////////////////////////*/
@@ -94,8 +101,13 @@ html, body {
 
 .stacks {
 	margin: auto;
-/*	padding-top: 0;*/
-/*	margin-bottom: 0;*/
+	padding-top: 0;
+	margin-bottom: 0;
+	height: 18vh;
+}
+
+.side {
+	margin: 5px auto;
 }
 
 /*////////////////////////*/

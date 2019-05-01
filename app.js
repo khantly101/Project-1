@@ -186,15 +186,6 @@ const checkRow = (box) => {
 	} 
 }
 
-const setRow = async () => {
-
-	for (let i = 1; i < 8; i+=1) {
-		await pileList(rows[i])
-		await checkRow(pile[pile.length -1].code, fillerId[i])
-	}
-
-}
-
 const setDeck = () => {
 
 	if (pile.length > 0) {
