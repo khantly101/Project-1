@@ -7,7 +7,6 @@ const rows = ["filler", "row1", "row2", "row3", "row4", "row5", "row6", "row7"]
 let deckId
 let drawn = []
 let pile = []
-let cardCounter = ""
 let drawNum = 3
 
 const cardSet = { 
@@ -243,11 +242,27 @@ const drawDrawn = async (num) => {
 	drawn = result.cards
 }
 
-const resetDeck = async (cards) => {
+const resetDeck = async () => {
+
+	let cardCounter = ""
 
 	await pileList("drawn")
+
+	for (let i = pile.length -1; i >= 0; i+=0) {
+		if (i >= 2) {
+			cardCounter += "," + pile[i-2].code + "," + pile[i-1].code + "," + pile[i].code
+			i-=3
+		} else if (i === 1) {
+			cardCounter += "," + pile[i-1].code + "," + pile[i].code
+			i-=2
+		} else if (i === 0) {
+			cardCounter += "," + pile[0].code
+			i-=1
+		}
+	}
+
 	await drawDrawn(pile.length)
-	await addPileDeck(cards)
+	await addPileDeck(cardCounter)
 	await pileList("deck")
 }
 
@@ -256,7 +271,7 @@ const showDrawn = async () => {
 	$("#drawn").empty()
 
 	if (pile.length === 0) {
-		await resetDeck(cardCounter)
+		await resetDeck()
 	}
 
 	if (pile.length > drawNum) {
@@ -264,8 +279,6 @@ const showDrawn = async () => {
 	} else {
 		await drawPile(pile.length)
 	}
-
-	cardCounter = drawn[0].code + "," + drawn[1].code + "," + drawn[2].code + "," + cardCounter
 
 	for (let i = 0; i < drawn.length; i+=1) {
 		if (i === 0) {
