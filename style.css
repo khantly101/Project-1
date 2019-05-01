@@ -94,6 +94,8 @@ html, body {
 
 .stacks {
 	margin: auto;
+/*	padding-top: 0;*/
+/*	margin-bottom: 0;*/
 }
 
 /*////////////////////////*/
@@ -105,9 +107,12 @@ html, body {
 }
 
 /*////////////////////////*/
-/**/
+/*Highlight Card*/
 /*////////////////////////*/
 
+.highlight {
+    border: 2px solid yellow;
+}
 
 /*////////////////////////*/
 /**/

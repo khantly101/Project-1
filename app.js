@@ -60,58 +60,58 @@ const cardSet = {
 				 	"KH" : "#QC, #QS"}
 
 const cardSetSide = {
-					"AC" : "#AD, #AH",
-				 	"AS" : "#AD, #AH",
-				 	"AD" : "#AC, #AS",
-					"AH" : "#AC, #AS", 
-					"2C" : "#AD, #AH",
-				 	"2S" : "#AD, #AH",
-				 	"2D" : "#AC, #AS",
-					"2H" : "#AC, #AS",  
-				 	"3C" : "#2D, #2H",
-				 	"3S" : "#2D, #2H",
-				 	"3D" : "#2C, #2S",
-					"3H" : "#2C, #2S", 
-					"4C" : "#3D, #3H",
-					"4S" : "#3D, #3H", 
-					"4D" : "#3C, #3S",
-					"4H" : "#3C, #3S", 
-					"5C" : "#4D, #4H",
-					"5S" : "#4D, #4H", 
-					"5D" : "#4C, #4S",
-					"5H" : "#4C, #4S",
-					"6C" : "#5D, #5H",
-					"6S" : "#5D, #5H",
-					"6D" : "#5C, #5S",
-					"6H" : "#5C, #5S",  
-					"7C" : "#6D, #6H",
-					"7S" : "#6D, #6H",
-					"7D" : "#6C, #6S",
-					"7H" : "#6C, #6S",
-					"8C" : "#7D, #7H",
-					"8S" : "#7D, #7H", 
-					"8D" : "#7C, #7S",
-				 	"8H" : "#7C, #7S", 
-					"9C" : "#8D, #8H",
-					"9S" : "#8D, #8H",
-					"9D" : "#8C, #8S",
-				 	"9H" : "#8C, #8S", 
-					"0C" : "#9D, #9H",
-					"0S" : "#9D, #9H",
-					"0D" : "#9C, #9S",
-				 	"0H" : "#9C, #9S", 
-					"JC" : "#0D, #0H",
-					"JS" : "#0D, #0H", 
-					"JD" : "#0C, #0S",
-				 	"JH" : "#0C, #0S",
-					"QC" : "#JD, #JH",
-					"QS" : "#JD, #JH", 
-					"QD" : "#JC, #JS",
-				 	"QH" : "#JC, #JS", 
-					"KC" : "#QD, #QH",
-					"KS" : "#QD, #QH",
-					"KD" : "#QC, #QS",
-				 	"KH" : "#QC, #QS"}
+					"AC" : "#2C",
+				 	"AS" : "#2S",
+				 	"AD" : "#2D",
+					"AH" : "#2H",
+					"2C" : "#3C",
+				 	"2S" : "#3S",
+				 	"2D" : "#3D",
+					"2H" : "#3H",
+				 	"3C" : "#4C",
+				 	"3S" : "#4S",
+				 	"3D" : "#4D",
+					"3H" : "#4H",
+					"4C" : "#5C",
+					"4S" : "#5S",
+					"4D" : "#5D",
+					"4H" : "#5H",
+					"5C" : "#6C",
+					"5S" : "#6S",
+					"5D" : "#6D",
+					"5H" : "#6H",
+					"6C" : "#7C",
+					"6S" : "#7S",
+					"6D" : "#7D",
+					"6H" : "#7H",
+					"7C" : "#8C",
+					"7S" : "#8S",
+					"7D" : "#8D",
+					"7H" : "#8H",
+					"8C" : "#9C",
+					"8S" : "#9S",
+					"8D" : "#9D",
+				 	"8H" : "#9H",
+					"9C" : "#0C",
+					"9S" : "#0S",
+					"9D" : "#0D",
+				 	"9H" : "#0H",
+					"0C" : "#JC",
+					"0S" : "#JS",
+					"0D" : "#JD",
+				 	"0H" : "#JH",
+					"JC" : "#QC",
+					"JS" : "#QS",
+					"JD" : "#QD",
+				 	"JH" : "#QH",
+					"QC" : "#KC",
+					"QS" : "#KS",
+					"QD" : "#KD",
+				 	"QH" : "#KH",
+					"KC" : "#AC",
+					"KS" : "#AS",
+					"KD" : "#AD",
+				 	"KH" : "#AH"}
 
 ////////////////////////
 // Card Api funtions //
@@ -143,16 +143,14 @@ const addPileDeck = async (card) => {
 
 }
 
-const addPileRow = async (name, card, target) => {
+const removeDrawn = async (card) => {
 
-	const pileName = `/pile/${name}/add/?cards=${card}`
+	const pileName = `/pile/drawn/draw/?cards=${card}`
 
 	let response = await fetch(cardApi + deckId + pileName)
 
-	const newCard = $("<div>").addClass("card").attr("id", card)
-	$(`#${target}`).append(newCard).droppable().on("click", setFace)
-
 }
+
 
 const addPileDrawn = async (card, target) => {
 
@@ -216,10 +214,17 @@ const setFace = () => {
 				revert: true,
 				revertDuration: 0
 		}).droppable({
-			accept: cardSet[id],
-			drop: cardDrop
+				accept: cardSet[id],
+				drop: cardDrop,
+				hoverClass: "highlight"
 		})
 	}
+}
+
+const addPileRow = (card, target) => {
+
+	const newCard = $("<div>").addClass("card").attr("id", card)
+	$(`#${target}`).append(newCard).droppable().on("click", setFace)
 
 }
 
@@ -231,6 +236,7 @@ const cardDrop = (event, ui) => {
 
 	let parent = ui.draggable.parent()
 	let id = parent.attr("id")
+	let uiId = ui.draggable.attr("id")
 
 	if (parent.length === 1) {
 		parent.droppable("enable")
@@ -245,12 +251,28 @@ const cardDrop = (event, ui) => {
 				revert: true,
 				revertDuration: 0
 		}).droppable({
-			accept: cardSet[id],
-			drop: cardDrop
+				accept: cardSet[id],
+				drop: cardDrop,
+				hoverClass: "highlight"
 		})
+		removeDrawn(ui.draggable.attr("id"))
 	}
-	if (event.target.hasClass("stacks")) {
+	if (ui.draggable.hasClass("stacks")) {
 
+		const $div = $("<div>").addClass("card").attr("id", uiId)
+		$div.css("background-image", `url(images/${uiId}.jpg)`).draggable({
+				containment: ".gameboard",
+				snap: ".gameboard",
+				revert: true,
+				revertDuration: 0
+		}).droppable({
+				accept: cardSet[uiId],
+				drop: cardDrop,
+				hoverClass: "highlight"
+		})
+
+		$(event.target).append($div)
+		ui.draggable.remove()
 	} else {
 		$(event.target).append(ui.draggable)
 	}
@@ -270,14 +292,19 @@ const addDroppableCard = () => {
 
 	if (["AH", "AD", "AS", "AC"].includes($(`#${drawn[drawn.length - 1].code}`).attr("id")) === false) {
 		$(`#${drawn[drawn.length - 1].code}`).droppable({
-			accept: cardSet[drawn[drawn.length - 1].code],
-			drop: cardDrop
+				accept: cardSet[drawn[drawn.length - 1].code],
+				drop: cardDrop,
+				hoverClass: "highlight"
 		})
 	}
 }
 
-const addDroppableSide = () => {
-
+const addDroppableStack = () => {
+	$(".stacks").droppable({
+		accept: "#AH, #AD, #AS, #AC",
+		drop: addStack,
+		hoverClass: "highlight"
+	})
 }
 
 ////////////////////////
@@ -353,8 +380,9 @@ const showDrawn = async () => {
 				revert: true,
 				revertDuration: 0
 		}).droppable({
-			accept: cardSet[drawn[drawn.length - 1].code],
-			drop: cardDrop
+				accept: cardSet[drawn[drawn.length - 1].code],
+				drop: cardDrop,
+				hoverClass: "highlight"
 		})
 
 	await pileList("deck")
@@ -366,11 +394,48 @@ const showDrawn = async () => {
 // Side Pile Functions //
 ///////////////////////
 
-	const addStack = (card, target) => {
-		const $div = $("<div>").addClass("card").attr("id", card).css("background-image", `url(images/${card}.jpg)`).droppable()
+const addStack = (event, ui) => {
+	let parent = ui.draggable.parent()
+	let id = parent.attr("id")
+	let uiId = ui.draggable.attr("id")
 
-		$(target).
+	if (parent.length === 1) {
+		parent.droppable("enable")
 	}
+	if (parent.hasClass("card")) {
+		parent.prop("flippable", true)
+	}
+	if (parent.hasClass("drawn")) {
+		parent.draggable({
+				containment: ".gameboard",
+				snap: ".gameboard",
+				revert: true,
+				revertDuration: 0
+		}).droppable({
+				accept: cardSet[id],
+				drop: cardDrop,
+				hoverClass: "highlight"
+		})
+		removeDrawn(ui.draggable.attr("id"))
+	}
+
+	const $div = $("<div>").addClass("card").attr("id", uiId).addClass("stacks")
+	$div.css("background-image", `url(images/${uiId}.jpg)`).draggable({
+				containment: ".gameboard",
+				snap: ".gameboard",
+				revert: true,
+				revertDuration: 0
+		}).droppable({
+				accept: cardSetSide[uiId],
+				drop: addStack,
+				hoverClass: "highlight"
+		})
+
+	$(event.target).append($div)
+	$(event.target).droppable("disable")
+	ui.draggable.remove()
+
+}
 
 
 ////////////////////////
@@ -387,13 +452,14 @@ const startGame = async () => {
 		await drawCard(i)
 		for (let e = 0; e < i; e+=1) {
 			if (e === 0) {
-				await addPileRow(rows[i], drawn[e].code, rows[i])
+				await addPileRow(drawn[e].code, rows[i])
 			} else {
-				await addPileRow(rows[i], drawn[e].code, drawn[e - 1].code)
+				await addPileRow(drawn[e].code, drawn[e - 1].code)
 			}
 		}
 		await addDroppableRow(i)
 		await addDroppableCard()
+		await addDroppableStack()
 
 		$(`#${drawn[drawn.length - 1].code}`).css("background-image", `url(images/${drawn[drawn.length - 1].code}.jpg)`).draggable({
 				containment: ".gameboard",
