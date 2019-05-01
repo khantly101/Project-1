@@ -8,6 +8,10 @@ let deckId
 let drawn = []
 let pile = []
 let drawNum = 3
+let kc = 0
+let ks = 0
+let kd = 0
+let kh = 0
 
 const cardSet = { 
 				 	"2C" : "#AD, #AH",
@@ -267,6 +271,8 @@ const cardDrop = (event, ui) => {
 	} else {
 		$(event.target).append(ui.draggable)
 	}
+
+	loseKing(uiId)
 	$(event.target).droppable("disable")
 }
 
@@ -428,10 +434,47 @@ const addStack = (event, ui) => {
 				hoverClass: "highlight"
 		})
 
+	hasKing(uiId)
+	winCondition()
 	$(event.target).append($div)
 	$(event.target).droppable("disable")
 	ui.draggable.remove()
 
+}
+
+////////////////////////
+// Win Condition //
+///////////////////////
+
+const hasKing = (id) => {
+
+	if (id === "KC") {
+		kc = 1
+	} else if (id === "KS") {
+		ks = 1
+	} else if (id === "KD") {
+		kd = 1
+	} else if (id === "KH") {
+		kh = 1
+	}
+}
+
+const loseKing = (id) => {
+	if (id === "KC") {
+		kc = 0
+	} else if (id === "KS") {
+		ks = 0
+	} else if (id === "KD") {
+		kd = 0
+	} else if (id === "KH") {
+		kh = 0
+	}
+}
+
+const winCondition = () => {
+	if (kc === 1 && ks === 1 && kd === 1 && kh === 1) {
+		alert("you win!")
+	}
 }
 
 
