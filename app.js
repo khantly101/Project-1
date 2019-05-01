@@ -7,6 +7,7 @@ const rows = ["filler", "row1", "row2", "row3", "row4", "row5", "row6", "row7"]
 let deckId
 let drawn 
 let pile
+let drawNum = 3
 
 const cardSet = { 
 				 	"2C" : "#AD, #AH",
@@ -117,7 +118,7 @@ const pileList = async (name) => {
 // Render //
 ///////////////////////
 
-const checkRow = async (box) => {
+const checkRow = (box) => {
 
 	if (pile.length > 0) {
 		$(`#${box}`).css("background-image", `url(images/${box}.jpg)`)
@@ -133,7 +134,7 @@ const setRow = async () => {
 
 }
 
-const setDeck = async () => {
+const setDeck = () => {
 
 	if (pile.length > 0) {
 		$(`#deck`).css("background-image", `url(images/blue_back.jpg)`)
@@ -195,6 +196,47 @@ const addDroppableCard = () => {
 		})
 	}
 }
+
+////////////////////////
+// Drawing Functions //
+///////////////////////
+
+const drawPile = async (num) => {
+
+	const drawDeck = `/pile/deck/draw/?count=${num}`
+
+	let response = await fetch(cardApi + deckId + drawDeck) 
+	result = await response.json()
+	drawn = result.cards
+}
+
+const showDrawn = async () => {
+
+	await drawPile(drawNum)
+	for (let i = 0; i < drawn.length; i+=1) {
+
+		const $div = $("<div>").addClass("card").attr("id", drawn[i].code).css("background-image", `url(images/${drawn[i].code}.jpg)`)
+
+		if (i === 0) {
+			$("#drawn").append($div).droppable()
+		} else {
+			$(`#${drawn[i - 1].code}`).append($div).droppable()
+		}
+	}
+
+	$(`#${drawn[drawn.length -1].code}`).draggable({
+			containment: ".gameboard",
+			snap: ".gameboard",
+			revert: true,
+			revertDuration: 0
+		})
+}
+
+
+
+
+
+
 
 ////////////////////////
 // Start Game Function //
