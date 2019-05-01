@@ -71,13 +71,13 @@ const getDeck = async () => {
 
 }	
 
-const drawCard = async () => {
+const drawCard = async (num) => {
 
-	const newDraw = `/draw/?count=1`
+	const newDraw = `/draw/?count=${num}`
 
 	let response = await fetch(cardApi + deckId + newDraw)
 	result = await response.json()
-	drawn = result.cards[0].code
+	drawn = result.cards
 
 }
 
@@ -89,7 +89,7 @@ const addPileDeck = async (card) => {
 
 }
 
-const addPileRow = async (name, card) => {
+const addPileRow = async (name, card, target) => {
 
 	const pileName = `/pile/${name}/add/?cards=${card}`
 
@@ -98,7 +98,7 @@ const addPileRow = async (name, card) => {
 	
 	const newCard = $("<div>").addClass("card").attr("id", card)
 
-	$(`#${name}`).append(newCard)
+	$(`#${target}`).append(newCard).droppable()
 
 }
 
@@ -149,8 +149,11 @@ const setDeck = async () => {
 
 const cardDrop = (event, ui) => {
 
+	if (ui.draggable.parent().length === 1) {
+		ui.draggable.parent().droppable("enable")
+	}
 	$(event.target).append(ui.draggable)
-
+	$(event.target).droppable("disable")
 }
 
 const addDroppableRow = (i) => {
@@ -159,15 +162,14 @@ const addDroppableRow = (i) => {
 		accept: "#KH, #KD, #KS, #KC",
 		drop: cardDrop
 	})
+	$(`#${rows[i]}`).droppable("disable")
 }
 
 const addDroppableCard = () => {
 
-	if (["AH", "AD", "AS", "AC"].includes($(`#${drawn}`).attr("id"))) {
-
-	} else {
-		$(`#${drawn}`).droppable({
-			accept: cardSet[drawn],
+	if (["AH", "AD", "AS", "AC"].includes($(`#${drawn[drawn.length - 1].code}`).attr("id")) === false) {
+		$(`#${drawn[drawn.length - 1].code}`).droppable({
+			accept: cardSet[drawn[drawn.length - 1].code],
 			drop: cardDrop
 		})
 	}
@@ -184,14 +186,18 @@ const startGame = async () => {
 	$(`#deck`).css("background-image", `url(images/blue_back.jpg)`)
 
 	for (let i = 1; i < 8; i+=1) {
+		await drawCard(i)
 		for (let e = 0; e < i; e+=1) {
-			await drawCard()
-		 	await addPileRow(rows[i], drawn)
+			if (e === 0) {
+				await addPileRow(rows[i], drawn[e].code, rows[i])
+			} else {
+				await addPileRow(rows[i], drawn[e].code, drawn[e - 1].code)
+			}
 		}
-		addDroppableRow(i)
-		addDroppableCard()
+		await addDroppableRow(i)
+		await addDroppableCard()
 
-		$(`#${drawn}`).css("background-image", `url(images/${drawn}.jpg)`).draggable({
+		$(`#${drawn[drawn.length - 1].code}`).css("background-image", `url(images/${drawn[drawn.length - 1].code}.jpg)`).draggable({
 				containment: ".gameboard",
 				snap: ".gameboard",
 				revert: true,
@@ -199,11 +205,9 @@ const startGame = async () => {
 		})
 	}
 
-
+	await drawCard(24)
 	for (let i = 0; i < 24; i+=1) {
-			await drawCard()
-			addPileDeck(drawn)
-			$(`#${drawn}`).css("display", "none")
+			addPileDeck(drawn[i].code)
 	}
 
 }
