@@ -28,12 +28,12 @@ http://touchpunch.furf.com/
 Instructions
 Avoid rapid clicking
 
+On phone, for best experience play horizontal
+
 https://bicyclecards.com/how-to-play/solitaire/
 
 
 To do
--add timer
--add local storage for scores and times
 -add windows solitaire win animation
 
 extra
@@ -42,3 +42,5 @@ extra
 Done
 -Basic framework for solitaire
 -add restart button
+-add timer
+-add local storage for scores and times
