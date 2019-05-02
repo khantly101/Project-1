@@ -4,8 +4,6 @@ const cor = "https://cors-anywhere.herokuapp.com/"
 
 const rows = ["filler", "row1", "row2", "row3", "row4", "row5", "row6", "row7"]
 
-let interval
-
 let deckId
 let drawn = []
 let pile = []
@@ -17,8 +15,9 @@ let ks = 0
 let kd = 0
 let kh = 0
 
-let seconds = 0
-let minute = 0
+let interval
+let totalTime = 0
+let timeSaved = localStorage.getItem('time') ? JSON.parse(localStorage.getItem('time')).sort((a,b)=> a - b) : [].sort((a,b)=> a - b)
 
 const cardSet = { 
 				 	"2C" : "#AD, #AH",
@@ -478,7 +477,7 @@ const loseKing = (id) => {
 
 const winCondition = () => {
 	if (kc === 1 && ks === 1 && kd === 1 && kh === 1) {
-		clearInterval(interval)
+		storeTime()
 		alert("you win!")
 	}
 }
@@ -536,28 +535,35 @@ const yellowBack = () => {
 }
 
 const showOverlay = () => {
+	clearInterval(interval)
+	totalTime = 0
+	$('.timer').text((Math.floor(totalTime/60)) + ":" + 0 + (totalTime % 60))
 	$(".overlay").removeClass("hidden")
 }
 
 ////////////////////////
-// Start Game Function //
+// Timer Function //
 ///////////////////////
 
 const updateTimer = () => {
 
-	seconds += 1
+	totalTime += 1
 
-	if (seconds >= 60) {
-		minute += 1
-		seconds = 0
-	}
-
-	if (seconds < 10) {
-		$('.timer').text(minute + ":" + 0 + seconds)
+	if (totalTime % 60 < 10) {
+		$('.timer').text((Math.floor(totalTime/60)) + ":" + 0 + (totalTime % 60))
 	} else {
-		$('.timer').text(minute + ":" + seconds)
+		$('.timer').text((Math.floor(totalTime/60)) + ":" + (totalTime % 60))
 	}
 }
+
+const storeTime = () => {
+
+		clearInterval(interval)
+		timeSaved.push(totalTime)
+		window.localStorage.setItem('time', JSON.stringify(timeSaved));
+
+}
+
 
 
 ////////////////////////
