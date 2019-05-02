@@ -42,11 +42,3 @@ extra
 Done
 -Basic framework for solitaire
 -add restart button
-<<<<<<< HEAD
-
-
-
-
-
-=======
->>>>>>> cc0a278417642c1bb4c941eb46c6ddaf9b921950
