@@ -359,7 +359,7 @@ const resetDeck = async () => {
 }
 
 const showDrawn = async () => {
-
+	$("#deck").off()
 	$("#drawn").empty()
 
 	if (pile.length === 0) {
@@ -394,7 +394,7 @@ const showDrawn = async () => {
 		})
 
 	await pileList("deck")
-
+	$("#deck").on("click", showDrawn)
 }
 
 ////////////////////////
@@ -609,7 +609,7 @@ const startGame = async () => {
 	}
 
 	await pileList("deck")
-
+	$("#deck").on("click", showDrawn)
 }
 
 
