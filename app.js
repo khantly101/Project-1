@@ -168,7 +168,7 @@ const addPileDrawn = async (card, target) => {
 
 	let response = await fetch(cardApi + deckId + pileDrawn)
 	
-	const newCard = $("<div>").addClass("card").attr("id", card).css("background-image", `url(images/${card}.jpg)`).droppable().addClass("drawn")
+	const newCard = $("<div>").addClass("card").attr("id", card).css("background-image", `url(Images/${card}.jpg)`).droppable().addClass("drawn")
 	$(`#${target}`).append(newCard).droppable()
 
 }
@@ -192,7 +192,7 @@ const pileList = async (name) => {
 const checkRow = (box) => {
 
 	if (pile.length > 0) {
-		$(`#${box}`).css("background-image", `url(images/${box}.jpg)`)
+		$(`#${box}`).css("background-image", `url(Images/${box}.jpg)`)
 	} 
 }
 
@@ -200,7 +200,7 @@ const setFace = () => {
 
 	let id = $(event.target).attr("id")
 	if ($(event.target).prop("flippable") === true) {
-			$(`#${id}`).css("background-image", `url(images/${id}.jpg)`).draggable({
+			$(`#${id}`).css("background-image", `url(Images/${id}.jpg)`).draggable({
 				containment: ".gameboard",
 				snap: ".gameboard",
 				revert: true,
@@ -215,7 +215,7 @@ const setFace = () => {
 
 const addPileRow = (card, target) => {
 
-	const newCard = $("<div>").addClass("card").attr("id", card).css("background-image", `url(images/${cardBack}.jpg)`)
+	const newCard = $("<div>").addClass("card").attr("id", card).css("background-image", `url(Images/${cardBack}.jpg)`)
 	$(`#${target}`).append(newCard).droppable().on("click", setFace)
 
 }
@@ -252,7 +252,7 @@ const cardDrop = (event, ui) => {
 	if (ui.draggable.hasClass("stacks")) {
 
 		const $div = $("<div>").addClass("card").attr("id", uiId)
-		$div.css("background-image", `url(images/${uiId}.jpg)`).draggable({
+		$div.css("background-image", `url(Images/${uiId}.jpg)`).draggable({
 				containment: ".gameboard",
 				snap: ".gameboard",
 				revert: true,
@@ -427,7 +427,7 @@ const addStack = (event, ui) => {
 	}
 
 	const $div = $("<div>").addClass("card").attr("id", uiId).addClass("stacks")
-	$div.css("background-image", `url(images/${uiId}.jpg)`).draggable({
+	$div.css("background-image", `url(Images/${uiId}.jpg)`).draggable({
 				containment: ".gameboard",
 				snap: ".gameboard",
 				revert: true,
@@ -580,7 +580,7 @@ const startGame = async () => {
 
 	await getDeck()
 
-	$(`#deck`).css("background-image", `url(images/${cardBack}.jpg)`)
+	$(`#deck`).css("background-image", `url(Images/${cardBack}.jpg)`)
 
 	for (let i = 1; i < 8; i+=1) {
 		await drawCard(i)
@@ -595,7 +595,7 @@ const startGame = async () => {
 		await addDroppableCard()
 		await addDroppableStack()
 
-		$(`#${drawn[drawn.length - 1].code}`).css("background-image", `url(images/${drawn[drawn.length - 1].code}.jpg)`).draggable({
+		$(`#${drawn[drawn.length - 1].code}`).css("background-image", `url(Images/${drawn[drawn.length - 1].code}.jpg)`).draggable({
 				containment: ".gameboard",
 				snap: ".gameboard",
 				revert: true,
