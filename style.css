@@ -139,7 +139,7 @@ html, body {
 /*Overlay*/
 /*////////////////////////*/
 
-.overlay {
+.overlay, .timeTable {
 	position: fixed; 
  	/*display: none; */
   	width: 100%; 
@@ -222,4 +222,31 @@ h3 {
 
 #startContainer {
 	text-align: center;
+}
+
+/*////////////////////////*/
+/*Best Times*/
+/*////////////////////////*/
+
+.tableBox {  
+	width: 30vw;
+	height: 40vh;
+	z-index: 2;
+	background-color: #303030;
+	margin: 25vh auto;
+	text-align: center;
+	color: white;
+}
+
+table {
+	margin: 0 auto;
+}
+
+th {
+	width: 75px;
+	text-align: left;
+}
+
+#return {
+	margin-top: 5vh;
 }

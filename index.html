@@ -10,8 +10,37 @@
 </head>
 <body>
 	<div class="info">
-		<button onclick="showOverlay()">Restart Game</button>
-		<div class="timer"></div>
+		<button class="button" onclick="showOverlay()">Restart Game</button>
+		<div class="timer">00:00</div>
+		<button class="button" onclick="showTime()">Best Times</button>
+	</div>
+	<div class="timeTable hidden">
+		<div class="tableBox">
+			<h2>Best Times</h2>
+			<table>
+				<tr>
+					<th>1.</th>
+					<td id="td0">00:00</td>
+				</tr>
+				<tr>
+					<th>2.</th>
+					<td id="td1">00:00</td>
+				</tr>
+				<tr>
+					<th>3.</th>
+					<td id="td2">00:00</td>
+				</tr>
+				<tr>
+					<th>4.</th>
+					<td id="td3">00:00</td>
+				</tr>
+				<tr>
+					<th>5.</th>
+					<td id="td4">00:00</td>
+				</tr>
+			</table>
+			<button class="button" id="return" onclick="hideTable()">Return to Game</button>
+		</div>
 	</div>
 	<div class="overlay">
 		<div class="container">

@@ -537,7 +537,7 @@ const yellowBack = () => {
 const showOverlay = () => {
 	clearInterval(interval)
 	totalTime = 0
-	$('.timer').text((Math.floor(totalTime/60)) + ":" + 0 + (totalTime % 60))
+	$('.timer').text(0 + (Math.floor(totalTime/60)) + ":" + 0 + (totalTime % 60))
 	$(".overlay").removeClass("hidden")
 }
 
@@ -549,10 +549,18 @@ const updateTimer = () => {
 
 	totalTime += 1
 
-	if (totalTime % 60 < 10) {
-		$('.timer').text((Math.floor(totalTime/60)) + ":" + 0 + (totalTime % 60))
+	if (Math.floor(totalTime/60) < 10) {
+		if (totalTime % 60 < 10) {
+			$('.timer').text(0 + (Math.floor(totalTime/60)) + ":" + 0 + (totalTime % 60))
+		} else {
+			$('.timer').text(0 + (Math.floor(totalTime/60)) + ":" + (totalTime % 60))
+		}
 	} else {
-		$('.timer').text((Math.floor(totalTime/60)) + ":" + (totalTime % 60))
+		if (totalTime % 60 < 10) {
+			$('.timer').text((Math.floor(totalTime/60)) + ":" + 0 + (totalTime % 60))
+		} else {
+			$('.timer').text((Math.floor(totalTime/60)) + ":" + (totalTime % 60))
+		}
 	}
 }
 
@@ -564,6 +572,38 @@ const storeTime = () => {
 
 }
 
+const showTime = () => {
+
+	let length = timeSaved.length
+
+	if (length > 5) {
+		length = 5
+	}
+
+	for (let i = 0; i < length; i+=1) {
+		if (Math.floor(timeSaved[i]/60) < 10) {
+			if (timeSaved[i] % 60 < 10) {
+				$(`#td${i}`).text(0 + (Math.floor(timeSaved[i]/60)) + ":" + 0 + (timeSaved[i] % 60))
+			} else {
+				$(`#td${i}`).text(0 + (Math.floor(timeSaved[i]/60)) + ":" + (timeSaved[i] % 60))
+			}
+		} else {
+			if (timeSaved[i] % 60 < 10) {
+				$(`#td${i}`).text((Math.floor(timeSaved[i]/60)) + ":" + 0 + (timeSaved[i] % 60))
+			} else {
+				$(`#td${i}`).text((Math.floor(timeSaved[i]/60)) + ":" + (timeSaved[i] % 60))
+			}
+		}
+	}
+
+	$(".timeTable").removeClass("hidden")
+}
+
+const hideTable = () => {
+
+	$(".timeTable").addClass("hidden")
+
+}
 
 
 ////////////////////////
