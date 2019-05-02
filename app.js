@@ -4,6 +4,7 @@ const cor = "https://cors-anywhere.herokuapp.com/"
 
 const rows = ["filler", "row1", "row2", "row3", "row4", "row5", "row6", "row7"]
 
+let interval
 
 let deckId
 let drawn = []
@@ -477,6 +478,7 @@ const loseKing = (id) => {
 
 const winCondition = () => {
 	if (kc === 1 && ks === 1 && kd === 1 && kh === 1) {
+		clearInterval(interval)
 		alert("you win!")
 	}
 }
@@ -576,7 +578,7 @@ const startGame = async () => {
 	$(".overlay").addClass("hidden")
 	clearBoard()
 
-	setInterval(updateTimer, 1000)
+	interval = setInterval(updateTimer, 1000)
 
 	await getDeck()
 
