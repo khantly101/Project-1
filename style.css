@@ -16,7 +16,7 @@ html, body {
 
 .gameboard {
 	display: flex;
-	background-color: green;
+	background-color: steelblue;
 	height: 90vh;
 }
 
@@ -38,7 +38,6 @@ html, body {
 
 .filler {
 	background: none;
-	border: 2px solid black;
 }
 
 /*////////////////////////*/
@@ -46,8 +45,11 @@ html, body {
 /*////////////////////////*/
 
 .UndrawnPile {
-	background-color: darkgreen;
+	background-color:  gray;
 	width: 10%;
+	background-image: url(Images/Card_logo.png);
+	background-repeat: no-repeat;
+	background-position: bottom;
 }
 
 #deck {
@@ -82,7 +84,7 @@ html, body {
 .row {
 	margin: 3%;
 	width: 14%;
-	border: 2px solid black;
+	border-top: 2px solid black;
 }
 
 /*////////////////////////*/
@@ -90,7 +92,7 @@ html, body {
 /*////////////////////////*/
 
 .stack {
-	background-color: darkgreen;
+	background-color:  gray;
 	width: 10%;
 	display: flex;
 	flex-direction: column;
@@ -102,6 +104,7 @@ html, body {
 	padding-top: 0;
 	margin-bottom: 0;
 	height: 18vh;
+	border: 2px solid black;
 }
 
 .side {
