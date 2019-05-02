@@ -10,7 +10,28 @@
 </head>
 <body>
 	<div class="info">
-		<button onclick="startGame()" >draw 3</button>
+		<button onclick="showOverlay()">Restart Game</button>
+		<div class="timer"></div>
+	</div>
+	<div class="overlay">
+		<div class="container">
+			<h3>Choose Card Back</h3> 
+			<div id="cardBacks">	
+				<div class="card back" id="blue" onclick="blueBack()"></div>
+				<div class="card back" id="gray" onclick="grayBack()"></div>
+				<div class="card back" id="green" onclick="greenBack()"></div>
+				<div class="card back" id="purple" onclick="purpleBack()"></div>
+				<div class="card back" id="red" onclick="redBack()"></div>
+				<div class="card back" id="yellow" onclick="yellowBack()"></div>
+			</div>
+			<div id="buttonContainer">
+				<button class="button" id="easy" onclick="easyMode()">Easy Mode</button>
+				<button class="button" id="hard" onclick="hardMode()">Hard Mode</button>
+			</div>
+			<div id="startContainer">
+				<button class="button" onclick="startGame()">Start Game</button>
+			</div>
+		</div>
 	</div>
 	<div class="gameboard">
 		<div class="UndrawnPile">

@@ -4,14 +4,20 @@ const cor = "https://cors-anywhere.herokuapp.com/"
 
 const rows = ["filler", "row1", "row2", "row3", "row4", "row5", "row6", "row7"]
 
+
 let deckId
 let drawn = []
 let pile = []
+let cardBack = "blue_back"
 let drawNum = 3
+let childId = ""
 let kc = 0
 let ks = 0
 let kd = 0
 let kh = 0
+
+let seconds = 0
+let minute = 0
 
 const cardSet = { 
 				 	"2C" : "#AD, #AH",
@@ -190,15 +196,6 @@ const checkRow = (box) => {
 	} 
 }
 
-const setDeck = () => {
-
-	if (pile.length > 0) {
-		$(`#deck`).css("background-image", `url(images/blue_back.jpg)`)
-	} else {
-		$(`#deck`).css("background-image", ``)
-	}
-}
-
 const setFace = () => {
 
 	let id = $(event.target).attr("id")
@@ -218,7 +215,7 @@ const setFace = () => {
 
 const addPileRow = (card, target) => {
 
-	const newCard = $("<div>").addClass("card").attr("id", card)
+	const newCard = $("<div>").addClass("card").attr("id", card).css("background-image", `url(images/${cardBack}.jpg)`)
 	$(`#${target}`).append(newCard).droppable().on("click", setFace)
 
 }
@@ -269,6 +266,7 @@ const cardDrop = (event, ui) => {
 		$(event.target).append($div)
 		ui.draggable.remove()
 	} else {
+		ui.draggable.removeClass("drawn")
 		$(event.target).append(ui.draggable)
 	}
 
@@ -301,12 +299,22 @@ const addDroppableStack = () => {
 		accept: "#AH, #AD, #AS, #AC",
 		drop: addStack,
 		hoverClass: "highlight"
-	})
+	}).droppable("enable")
 }
 
 ////////////////////////
 // Drawing Functions //
 ///////////////////////
+
+const findDeepest = () => {
+	let child = $("#drawn")
+
+	while (child.children().length > 0) {
+		child = child.children()
+	}
+	childId = child.attr("id")
+}
+
 
 const drawPile = async (num) => {
 
@@ -370,11 +378,8 @@ const showDrawn = async () => {
 	}
 
 	for (let i = 0; i < drawn.length; i+=1) {
-		if (i === 0) {
-			await addPileDrawn(drawn[i].code, "drawn")
-		} else {
-			await addPileDrawn(drawn[i].code, drawn[i - 1].code)
-		}
+		findDeepest()
+		await addPileDrawn(drawn[i].code, childId)
 	}
 
 	$(`#${drawn[drawn.length - 1].code}`).draggable({
@@ -389,7 +394,6 @@ const showDrawn = async () => {
 		})
 
 	await pileList("deck")
-	await setDeck()
 
 }
 
@@ -477,6 +481,82 @@ const winCondition = () => {
 	}
 }
 
+////////////////////////
+// Difficulty/CardBack Function //
+///////////////////////
+
+const easyMode = () => {
+	drawNum = 1
+	$(".button").removeClass("highlight")
+	$("#easy").addClass("highlight")
+}
+
+const hardMode = () => {
+	drawNum = 3
+	$(".button").removeClass("highlight")
+	$("#hard").addClass("highlight")
+}
+
+const blueBack = () => {
+	cardBack = "blue_back"
+	$(".back").removeClass("highlight")
+	$("#blue").addClass("highlight")
+}
+
+const grayBack = () => {
+	cardBack = "Gray_back"
+	$(".back").removeClass("highlight")
+	$("#gray").addClass("highlight")
+}
+
+const greenBack = () => {
+	cardBack = "Green_back"
+	$(".back").removeClass("highlight")
+	$("#green").addClass("highlight")
+}
+
+const purpleBack = () => {
+	cardBack = "purple_back"
+	$(".back").removeClass("highlight")
+	$("#purple").addClass("highlight")
+}
+
+const redBack = () => {
+	cardBack = "Red_back"
+	$(".back").removeClass("highlight")
+	$("#red").addClass("highlight")
+}
+
+const yellowBack = () => {
+	cardBack = "Yellow_back"
+	$(".back").removeClass("highlight")
+	$("#yellow").addClass("highlight")
+}
+
+const showOverlay = () => {
+	$(".overlay").removeClass("hidden")
+}
+
+////////////////////////
+// Start Game Function //
+///////////////////////
+
+const updateTimer = () => {
+
+	seconds += 1
+
+	if (seconds >= 60) {
+		minute += 1
+		seconds = 0
+	}
+
+	if (seconds < 10) {
+		$('.timer').text(minute + ":" + 0 + seconds)
+	} else {
+		$('.timer').text(minute + ":" + seconds)
+	}
+}
+
 
 ////////////////////////
 // Start Game Function //
@@ -487,16 +567,20 @@ const clearBoard = () => {
 	$("#drawn").empty()
 	$(".row").empty()
 	$(".stacks").empty()
+	minute = 0
+	seconds = 0 
 
 }
 
 const startGame = async () => {
-
+	$(".overlay").addClass("hidden")
 	clearBoard()
+
+	setInterval(updateTimer, 1000)
 
 	await getDeck()
 
-	$(`#deck`).css("background-image", `url(images/blue_back.jpg)`)
+	$(`#deck`).css("background-image", `url(images/${cardBack}.jpg)`)
 
 	for (let i = 1; i < 8; i+=1) {
 		await drawCard(i)

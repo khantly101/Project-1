@@ -25,7 +25,6 @@ html, body {
 /*////////////////////////*/
 
 .card {
-	background-image: url("images/blue_back.jpg");
 	background-size: contain;
 	background-repeat: no-repeat;
 	background-position: center;
@@ -47,13 +46,12 @@ html, body {
 /*////////////////////////*/
 
 .UndrawnPile {
-	background-color: gray;
+	background-color: darkgreen;
 	width: 10%;
 }
 
 #deck {
 	margin: 25% auto;
-	background-image: url(images/blue_back.jpg);
 	background-size: contain;
 	background-repeat: no-repeat;
 	background-position: center;
@@ -92,7 +90,7 @@ html, body {
 /*////////////////////////*/
 
 .stack {
-	background-color: gray;
+	background-color: darkgreen;
 	width: 10%;
 	display: flex;
 	flex-direction: column;
@@ -127,5 +125,98 @@ html, body {
 }
 
 /*////////////////////////*/
-/**/
+/*Overlay*/
 /*////////////////////////*/
+
+.timer {
+	color: white;
+}
+
+/*////////////////////////*/
+/*Overlay*/
+/*////////////////////////*/
+
+.overlay {
+	position: fixed; 
+ 	/*display: none; */
+  	width: 100%; 
+ 	height: 100%; 
+  	top: 0; 
+  	left: 0;
+ 	right: 0;
+  	bottom: 0;
+ 	background-color: rgba(0,0,0,0.5); 
+  	z-index: 2; 
+}
+
+.container {
+	width: 50vw;
+	height: 50vh;
+	z-index: 2;
+	background-color: #303030;
+	margin: 25vh auto;
+	/*border: 2px double gold;*/
+}
+
+#cardBacks {
+	height: 55%;
+	width: 100%;
+	display: flex;
+}
+
+h3 {
+	height: 5vh;
+	margin: 1vh 0 0 0;
+	padding-top: 5px;
+	color: white;
+	text-align: center;
+}
+
+.back {
+	padding-top: 0;
+	margin-bottom: 0;
+	margin: 3vh auto;
+	height: 16vh;
+	width: 9vw;
+}
+
+#blue {
+	background-image: url(images/blue_back.jpg);
+}
+
+#gray {
+	background-image: url(images/Gray_back.jpg);
+}
+
+#green {
+	background-image: url(images/Green_back.jpg);
+}
+
+#purple {
+	background-image: url(images/purple_back.jpg);
+}
+
+#red {
+	background-image: url(images/Red_back.jpg);
+}
+
+#yellow {
+	background-image: url(images/Yellow_back.jpg);
+}
+
+#buttonContainer {
+	width: 100%;
+	height: 15%;
+	text-align: center;
+	margin: auto;
+}
+
+.button {
+	margin: auto;
+	background: #303030;
+	color: white;
+}
+
+#startContainer {
+	text-align: center;
+}
