@@ -412,7 +412,7 @@ const deckCount = () => {
 	$(".counter").text(`Deck: ${pile.length}`)
 
 	if (pile.length === 0) {
-		$(`#deck`).css("background-image", `none`)
+		$(`#deck`).css("background-image", `url(Images/Empty_back.png)`)
 	}
 
 }
@@ -729,6 +729,9 @@ const showTutorial = () => {
 
 const pageRight = () => {
 
+	$(".prev").off()
+	$(".next").off()
+
 	$(`.page${tutorialPage}`).hide("slide", {direction: "left"}, 1000)
 
 	if (tutorialPage === 2) {
@@ -738,9 +741,15 @@ const pageRight = () => {
 	}
 
 	$(`.page${tutorialPage}`).show("slide", {direction: "right"}, 1000)
+
+	$(".prev").on("click", pageLeft)
+	$(".next").on("click", pageRight)
 }
 
 const pageLeft = () => {
+
+	$(".prev").off()
+	$(".next").off()
 
 	$(`.page${tutorialPage}`).hide("slide", {direction: "right"}, 1000)
 
@@ -752,6 +761,8 @@ const pageLeft = () => {
 
 	$(`.page${tutorialPage}`).show("slide", {direction: "left"}, 1000)
 
+	$(".prev").on("click", pageLeft)
+	$(".next").on("click", pageRight)
 }
 
 ////////////////////////

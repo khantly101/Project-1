@@ -38,7 +38,10 @@ html, body {
 }
 
 .filler {
-	background: none;
+	background: url(Images/Empty_back.png);
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
 }
 
 /*////////////////////////*/
@@ -175,6 +178,7 @@ html, body {
 
 #stack1, #stack2, #stack3, #stack4 {
 	border-top: 2px solid black;
+	border-bottom: 2px solid black;
 } 
 
 .side {
