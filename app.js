@@ -404,6 +404,11 @@ const fillDrawn = () => {
 
 const deckCount = () => {
 	$(".counter").text(`Deck: ${pile.length}`)
+
+	if (pile.length === 0) {
+		$(`#deck`).css("background-image", `none`)
+	}
+
 }
 
 const resetDeck = async () => {
@@ -424,6 +429,7 @@ const resetDeck = async () => {
 	}
 
 	allDrawn = []
+	$(`#deck`).css("background-image", `url(Images/${cardBack}.jpg)`)
 	await drawDrawn(allDrawn.length)
 	await addPileDeck(cardCounter)
 	await pileList("deck")
@@ -707,6 +713,7 @@ const clearBoard = () => {
 	$("#drawn").empty()
 	$(".row").empty()
 	$(".stacks").empty()
+	$("#deck").off('click')
 	minute = 0
 	seconds = 0 
 	kc = 0

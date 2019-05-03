@@ -86,21 +86,24 @@ html, body {
 
 .timer {
 	flex: auto;
-	color: white;
+	color: ghostwhite;
 	margin: 2%;
 	font-size: 25px;
 }
 
 .counter {
-	color: white;
+	color: ghostwhite;
 	flex: auto;
 }
 
 .victory {
-	color: white;
+	color: ghostwhite;
 	flex: auto;
 	margin: 2%;
 	font-size: 25px;
+	animation-name: rainbowWin;
+	animation-duration: 2s;
+	animation-iteration-count: infinite;
 }
 
 /*////////////////////////*/
@@ -120,6 +123,8 @@ html, body {
 	background-size: contain;
 	background-repeat: no-repeat;
 	background-position: center;
+	border-top: 2px solid black;
+	border-bottom: 2px solid black;
 }
 
 #drawn {
@@ -169,7 +174,7 @@ html, body {
 }
 
 #stack1, #stack2, #stack3, #stack4 {
-	border: 2px solid black;
+	border-top: 2px solid black;
 } 
 
 .side {
@@ -200,7 +205,7 @@ html, body {
 /*Overlay*/
 /*////////////////////////*/
 
-.overlay, .timeTable {
+.overlay, .timeTable, .tutorial{
 	position: fixed; 
   	width: 100%; 
  	height: 100%; 
@@ -232,7 +237,7 @@ h3 {
 	height: 5vh;
 	margin: 1vh 0 0 0;
 	padding-top: 5px;
-	color: white;
+	color: ghostwhite;
 	text-align: center;
 	flex: auto;
 }
@@ -281,7 +286,7 @@ h3 {
 .button {
 	margin: auto;
 	background: #303030;
-	color: white;
+	color: ghostwhite;
 }
 
 #startContainer {
@@ -306,7 +311,7 @@ h3 {
 }
 
 .title {
-	color: white;
+	color: ghostwhite;
 	flex: auto;
 	display: flex;
 	flex-direction: column;
@@ -318,7 +323,7 @@ h2 {
 }
 
 table {
-	color: white;
+	color: ghostwhite;
 	margin: 0 auto;
 	flex: auto;
 }
@@ -335,6 +340,58 @@ th {
 	justify-content: center;
 }
 
-#return {
-	
+
+/*////////////////////////*/
+/*Tutorial*/
+/*////////////////////////*/
+
+.tutorialBox {  
+	width: 50vw;
+	height: 45vh;
+	z-index: 2;
+	background-color: #303030;
+	margin: 25vh auto;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
 }
+
+.bholder {
+	height: 20%;
+	display: flex;
+}
+
+.page1 {
+	height: 80%;
+}
+
+.prev {
+ 
+}
+
+.prev:after {
+
+}
+
+.right {
+
+}
+
+/*////////////////////////*/
+/*Animations*/
+/*////////////////////////*/
+
+@keyframes rainbowWin {
+  0% { color: darkmagenta; }
+  10% { color: lightcoral; }
+  25% { color: crimson;}
+  30% { color: orangered;}
+  40% { color: gold; }
+  50% { color: lightyellow; }
+  60% { color: greenyellow; }
+  75% { color: mediumspringgreen; }
+  80% { color: aquamarine;}
+  90% { color: steelblue; }
+  100% { color: darkviolet; }
+}
+
