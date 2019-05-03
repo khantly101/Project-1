@@ -36,13 +36,14 @@ https://bicyclecards.com/how-to-play/solitaire/
 
 
 To do
--add windows solitaire win animation
+-Add Instructions
 
 extra
--add animation
+-Add animation
 
 Done
 -Basic framework for solitaire
--add restart button
--add timer
--add local storage for scores and times
+-Add restart button
+-Add timer
+-Add local storage for scores and times
+-Add windows solitaire win animation

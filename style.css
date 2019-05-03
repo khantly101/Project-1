@@ -192,6 +192,10 @@ html, body {
     border: 2px solid yellow;
 }
 
+.highlightRow {
+	border-top: 2px solid yellow;
+}
+
 /*////////////////////////*/
 /*Overlay*/
 /*////////////////////////*/
