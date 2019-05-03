@@ -46,6 +46,12 @@ let totalTime = 0
 let timeSaved = localStorage.getItem('time') ? JSON.parse(localStorage.getItem('time')).sort((a,b)=> a - b) : [].sort((a,b)=> a - b)
 
 ////////////////////////
+// Tutorial list //
+///////////////////////
+
+let tutorialPage = 0
+
+////////////////////////
 // Dropable list //
 ///////////////////////
 
@@ -702,6 +708,51 @@ const hideTable = () => {
 
 }
 
+////////////////////////
+// Tutorial Function //
+///////////////////////
+
+const hideTutorial = () => {
+
+	$(".tutorial").addClass("hidden")
+
+}
+
+const showTutorial = () => {
+	tutorialPage = 0
+	$(`.page1`).hide()
+	$(`.page2`).hide()
+	$(`.page0`).show()
+	$(".tutorial").removeClass("hidden")
+
+}
+
+const pageRight = () => {
+
+	$(`.page${tutorialPage}`).hide("slide", {direction: "left"}, 1000)
+
+	if (tutorialPage === 2) {
+		tutorialPage = 0
+	} else {
+		tutorialPage += 1
+	}
+
+	$(`.page${tutorialPage}`).show("slide", {direction: "right"}, 1000)
+}
+
+const pageLeft = () => {
+
+	$(`.page${tutorialPage}`).hide("slide", {direction: "right"}, 1000)
+
+	if (tutorialPage === 0) {
+		tutorialPage = 2
+	} else {
+		tutorialPage -= 1
+	}
+
+	$(`.page${tutorialPage}`).show("slide", {direction: "left"}, 1000)
+
+}
 
 ////////////////////////
 // Start Game Function //

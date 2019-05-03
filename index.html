@@ -21,7 +21,7 @@
 		</div>
 		<div class="right">
 			<button class="button" id="best" onclick="showTime()">Best Times</button>
-			<button class="button" id="instructions">How to Play</button>
+			<button class="button" id="instructions" onclick="showTutorial()">How to Play</button>
 		</div>
 	</div>
 	<div class="timeTable hidden">
@@ -56,19 +56,38 @@
 			</div>
 		</div>
 	</div>
-	<div class="tutorial">
+	<div class="tutorial hidden">
 		<div class="tutorialBox">
-			<div class="page1">
-				
+			<div class="tutorialPage">
+				<div class="page0">
+					<img src="Images/Row_tutorial.png" class="rTutorial">
+					<div class="textbox0">
+						<p> Rearrange the cards you have, moving only the face up cards. When you place a card on top it must be a different color than the card you are placing it on top of and have a value of one less. Empty Rows only accept Kings. Exposed face down cards may be fliped face up.</p>
+						<p>K > Q > J > 10 > 9 > 8 > 7 > 6 > 5 > 4 > 3 > 2 > Ace</p>
+					</div>
+				</div>
+				<div class="page1">
+					<img src="Images/Deck_tutorial.png" class="dTutorial">
+					<div class="textbox1">
+						<p> If needed, click on the Deck to draw either 1(easy) or 3(hard) cards. Only the top most card is moveable. If the deck is empty, all drawn cards will be returned to the deck and you can draw again.
+						</p>
+					</div>
+				</div>
+				<div class="page2">
+					<div class="textbox2">
+						<p> Piles on the right hand side only accept Aces. From there you may place same suit cards one rank above. To win fill all piles with all cards.</p>
+					</div>
+					<img src="Images/Pile_tutorial.png" class="pTutorial">
+				</div>
 			</div>
 			<div class="bholder">
-				<button class="button prev">< Prev</button>
-				<button class="button">Close</button>
-				<button class="button next">Next ></button>
+				<button class="button prev" onclick="pageLeft()">< Prev</button>
+				<button class="button" onclick="hideTutorial()">Close</button>
+				<button class="button next" onclick="pageRight()">Next ></button>
 			</div>
 		</div>
 	</div>
-	<div class="overlay hidden">
+	<div class="overlay">
 		<div class="container">
 			<h3>Choose Card Back</h3> 
 			<div id="cardBacks">	

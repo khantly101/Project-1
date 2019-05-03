@@ -182,14 +182,6 @@ html, body {
 }
 
 /*////////////////////////*/
-/*Hidden Card*/
-/*////////////////////////*/
-
-.hidden {
-	display: none;
-}
-
-/*////////////////////////*/
 /*Highlight Card*/
 /*////////////////////////*/
 
@@ -347,13 +339,14 @@ th {
 
 .tutorialBox {  
 	width: 50vw;
-	height: 45vh;
+	height: 55vh;
 	z-index: 2;
 	background-color: #303030;
 	margin: 25vh auto;
 	text-align: center;
 	display: flex;
 	flex-direction: column;
+	color: ghostwhite;
 }
 
 .bholder {
@@ -361,21 +354,42 @@ th {
 	display: flex;
 }
 
-.page1 {
+.tutorialPage {
 	height: 80%;
 }
 
-.prev {
- 
+.page0 {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
 }
 
-.prev:after {
-
+.rTutorial {
+	width: 100%;
+	height: 35%
 }
 
-.right {
-
+.textbox0 {
+	width: 90%;
+	margin: 0 auto;
 }
+
+.page1, .page2 {
+	height: 100%;
+	display: flex;
+	flex-direction: row;
+}
+
+.dTutorial, .pTutorial {
+	width: 20%;
+	height: 100%;
+}
+
+.textbox1, .textbox2 {
+	width: 60%;
+	margin: 0 auto;
+}
+
 
 /*////////////////////////*/
 /*Animations*/
@@ -395,3 +409,10 @@ th {
   100% { color: darkviolet; }
 }
 
+/*////////////////////////*/
+/*Hidden Card*/
+/*////////////////////////*/
+
+.hidden {
+	display: none;
+}
