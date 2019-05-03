@@ -732,7 +732,7 @@ const pageRight = () => {
 	$(".prev").off()
 	$(".next").off()
 
-	$(`.page${tutorialPage}`).hide("slide", {direction: "left"}, 1000)
+	$(`.page${tutorialPage}`).hide()
 
 	if (tutorialPage === 2) {
 		tutorialPage = 0
@@ -751,7 +751,7 @@ const pageLeft = () => {
 	$(".prev").off()
 	$(".next").off()
 
-	$(`.page${tutorialPage}`).hide("slide", {direction: "right"}, 1000)
+	$(`.page${tutorialPage}`).hide()
 
 	if (tutorialPage === 0) {
 		tutorialPage = 2
