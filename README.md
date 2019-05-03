@@ -18,9 +18,11 @@ https://deckofcardsapi.com/
 JQuery ui - for drag and drop
 https://code.jquery.com/ui/
 
-jQuery UI Touch Punch - for phone drag and drop
+JQuery UI Touch Punch - for phone drag and drop
 http://touchpunch.furf.com/
 
+JQuery Solitaire Win Animation 
+https://github.com/peterkhayes/solitaireVictory
 
 -Will gather all deck data from the api, from cards drawn to cards left in the deck.
 -advance css will be drag and drop for moving cards around

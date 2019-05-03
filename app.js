@@ -3,6 +3,8 @@ const newDeck = "new/shuffle/?deck_count=1"
 const cor = "https://cors-anywhere.herokuapp.com/"
 
 const rows = ["filler", "row1", "row2", "row3", "row4", "row5", "row6", "row7"]
+const victory = ["KC", "KS", "KD", "KH"]
+let stopNum = 0
 
 let deckId
 let drawn = []
@@ -16,6 +18,7 @@ let kd = 0
 let kh = 0
 
 let interval
+let victInt
 let totalTime = 0
 let timeSaved = localStorage.getItem('time') ? JSON.parse(localStorage.getItem('time')).sort((a,b)=> a - b) : [].sort((a,b)=> a - b)
 
@@ -333,6 +336,10 @@ const drawDrawn = async (num) => {
 
 }
 
+const deckCount = () => {
+	$(".counter").text(`Deck: ${pile.length}`)
+}
+
 const resetDeck = async () => {
 
 	let cardCounter = ""
@@ -394,6 +401,7 @@ const showDrawn = async () => {
 		})
 
 	await pileList("deck")
+	await deckCount()
 	$("#deck").on("click", showDrawn)
 }
 
@@ -475,10 +483,29 @@ const loseKing = (id) => {
 	}
 }
 
+const winAnimation = () => {
+	$(`#${victory[Math.floor(Math.random() * 4)]}`).solitaireVictory({
+		g: -4,
+		dt: 20,
+		bounce: 0.8,
+		endVelocity: 20, 
+		fallToLeft: true,
+		clear: false,    
+  		stagger: 300,
+	});
+	stopNum += 1
+
+	if (stopNum > 10) {
+		clearInterval(victInt)
+	}
+
+}
+
 const winCondition = () => {
 	if (kc === 1 && ks === 1 && kd === 1 && kh === 1) {
 		storeTime()
-		alert("you win!")
+		$(".victory").removeClass("hidden")
+		victInt = setInterval(winAnimation, 1500)
 	}
 }
 
@@ -549,17 +576,18 @@ const updateTimer = () => {
 
 	totalTime += 1
 
-	if (Math.floor(totalTime/60) < 10) {
+
+	if ((Math.floor(totalTime/60) < 10)) {
 		if (totalTime % 60 < 10) {
-			$('.timer').text(0 + (Math.floor(totalTime/60)) + ":" + 0 + (totalTime % 60))
+			$('.timer').text(`0${Math.floor(totalTime/60)}:0${(totalTime % 60)}`)
 		} else {
-			$('.timer').text(0 + (Math.floor(totalTime/60)) + ":" + (totalTime % 60))
+			$('.timer').text(`0${Math.floor(totalTime/60)}:${(totalTime % 60)}`)
 		}
 	} else {
 		if (totalTime % 60 < 10) {
-			$('.timer').text((Math.floor(totalTime/60)) + ":" + 0 + (totalTime % 60))
+			$('.timer').text(`${Math.floor(totalTime/60)}:0${(totalTime % 60)}`)
 		} else {
-			$('.timer').text((Math.floor(totalTime/60)) + ":" + (totalTime % 60))
+			$('.timer').text(`${Math.floor(totalTime/60)}:${(totalTime % 60)}`)
 		}
 	}
 }
@@ -581,17 +609,17 @@ const showTime = () => {
 	}
 
 	for (let i = 0; i < length; i+=1) {
-		if (Math.floor(timeSaved[i]/60) < 10) {
+		if ((Math.floor(totalTime/60) < 10)) {
 			if (timeSaved[i] % 60 < 10) {
-				$(`#td${i}`).text(0 + (Math.floor(timeSaved[i]/60)) + ":" + 0 + (timeSaved[i] % 60))
+				$(`#td${i}`).text(`0${Math.floor(timeSaved[i]/60)}:0${(timeSaved[i] % 60)}`)
 			} else {
-				$(`#td${i}`).text(0 + (Math.floor(timeSaved[i]/60)) + ":" + (timeSaved[i] % 60))
+				$(`#td${i}`).text(`0${Math.floor(timeSaved[i]/60)}:${(timeSaved[i] % 60)}`)
 			}
 		} else {
 			if (timeSaved[i] % 60 < 10) {
-				$(`#td${i}`).text((Math.floor(timeSaved[i]/60)) + ":" + 0 + (timeSaved[i] % 60))
+				$(`#td${i}`).text(`${Math.floor(timeSaved[i]/60)}:0${(timeSaved[i] % 60)}`)
 			} else {
-				$(`#td${i}`).text((Math.floor(timeSaved[i]/60)) + ":" + (timeSaved[i] % 60))
+				$(`#td${i}`).text(`${Math.floor(timeSaved[i]/60)}:${(timeSaved[i] % 60)}`)
 			}
 		}
 	}
@@ -622,9 +650,10 @@ const clearBoard = () => {
 
 const startGame = async () => {
 	$(".overlay").addClass("hidden")
+	$(".victory").addClass("hidden")
 	clearBoard()
-
 	interval = setInterval(updateTimer, 1000)
+	stopNum = 0
 
 	await getDeck()
 
@@ -669,3 +698,4 @@ $(()=>{
 
 
 })
+

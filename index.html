@@ -4,20 +4,31 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" charset="utf-8"></script>
 	<script  src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"  integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="  crossorigin="anonymous"></script>
 	<script src="jquery.ui.touch-punch.min.js"></script>
+	<script src="solitaireVictory.js"></script>
   	<script src="app.js"></script>
   	<link rel="stylesheet" type="text/css" href="style.css">
 	<title>Solitaire</title>
 </head>
 <body>
 	<div class="info">
-		<button class="button" onclick="showOverlay()">Restart Game</button>
-		<button class="button" onclick="showTime()">Best Times</button>
-		<button class="button">How to Play</button>
-		<div class="timer">00:00</div>
+		<div class="left">
+			<button class="button" id="restart" onclick="showOverlay()">Restart Game</button>
+			<div class="counter">Deck:</div>
+		</div>
+		<div class="middle">
+			<div class="timer"></div>
+			<div class="victory hidden">You Win!</div>
+		</div>
+		<div class="right">
+			<button class="button" id="best" onclick="showTime()">Best Times</button>
+			<button class="button" id="instructions">How to Play</button>
+		</div>
 	</div>
 	<div class="timeTable hidden">
 		<div class="tableBox">
-			<h2>Best Times</h2>
+			<div class="title">
+				<h2>Best Times</h2>
+			</div>
 			<table>
 				<tr>
 					<th>1.</th>
@@ -40,7 +51,9 @@
 					<td id="td4">00:00</td>
 				</tr>
 			</table>
-			<button class="button" id="return" onclick="hideTable()">Return to Game</button>
+			<div class="buttonBox">
+				<button class="button" id="return" onclick="hideTable()">Return to Game</button>
+			</div>
 		</div>
 	</div>
 	<div class="overlay">
