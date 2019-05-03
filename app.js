@@ -562,6 +562,7 @@ const yellowBack = () => {
 }
 
 const showOverlay = () => {
+	$('').solitaireVictory({clear: true})
 	clearInterval(interval)
 	totalTime = 0
 	$('.timer').text(0 + (Math.floor(totalTime/60)) + ":" + 0 + (totalTime % 60))
@@ -640,6 +641,7 @@ const hideTable = () => {
 
 const clearBoard = () => {
 
+	$('').solitaireVictory({clear: true})
 	$("#drawn").empty()
 	$(".row").empty()
 	$(".stacks").empty()
