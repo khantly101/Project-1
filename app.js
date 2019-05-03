@@ -181,7 +181,7 @@ const pileList = async (name) => {
 
 	const pileUrl = `/pile/${name}/list`
 
-	let response = await fetch(cor + cardApi + deckId + pileUrl)
+	let response = await fetch(cardApi + deckId + pileUrl)
 	let result = await response.json()
 	pile = result.piles[name].cards
 	
