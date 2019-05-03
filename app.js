@@ -265,7 +265,12 @@ const cardDrop = (event, ui) => {
 		}).droppable()
 
 		allDrawn.pop()
-		fillDrawn()
+
+		if (drawNum === 3) {
+			fillDrawn3()
+		} else {
+			fillDrawn()
+		}
 		removeDrawn(uiId)
 	}
 
@@ -365,13 +370,28 @@ const addFillDrawn = (card, target) => {
 
 }
 
-const fillDrawn = () => {
+const fillDrawn3 = () => {
 	if (allDrawn.length > 2) {
 		$("#drawn").empty()
 		for (let i = 3; i > 0; i-=1) {
 			findDeepest()
 			addFillDrawn(allDrawn[allDrawn.length - i], childId)
 		}
+
+		$(`#${allDrawn[allDrawn.length - 1]}`).draggable({
+				containment: ".gameboard",
+				snap: ".gameboard",
+				revert: true,
+				revertDuration: 0
+		})
+	}
+}
+
+const fillDrawn = () => {
+	if (allDrawn.length > 0) {
+		$("#drawn").empty()
+		findDeepest()
+		addFillDrawn(allDrawn[allDrawn.length - 1], childId)
 
 		$(`#${allDrawn[allDrawn.length - 1]}`).draggable({
 				containment: ".gameboard",
@@ -466,7 +486,12 @@ const addStack = (event, ui) => {
 		}).droppable()
 		
 		allDrawn.pop()
-		fillDrawn()
+
+		if (drawNum === 3) {
+			fillDrawn3()
+		} else {
+			fillDrawn()
+		}
 		removeDrawn(uiId)
 	}
 
@@ -684,6 +709,10 @@ const clearBoard = () => {
 	$(".stacks").empty()
 	minute = 0
 	seconds = 0 
+	kc = 0
+	ks = 0
+	kd = 0
+	kh = 0
 
 }
 
