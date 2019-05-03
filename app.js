@@ -684,7 +684,7 @@ const showTime = () => {
 	}
 
 	for (let i = 0; i < length; i+=1) {
-		if ((Math.floor(totalTime/60) < 10)) {
+		if ((Math.floor(timeSaved[i]/60) < 10)) {
 			if (timeSaved[i] % 60 < 10) {
 				$(`#td${i}`).text(`0${Math.floor(timeSaved[i]/60)}:0${(timeSaved[i] % 60)}`)
 			} else {
