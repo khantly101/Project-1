@@ -253,25 +253,23 @@ const cardDrop = (event, ui) => {
 	let id = parent.attr("id")
 	let uiId = ui.draggable.attr("id")
 
-	if (parent.length === 1) {
-		parent.droppable("enable")
-	}
-	if (parent.hasClass("card")) {
-		parent.prop("flippable", true)
-	}
+	parent.droppable("enable")
+	parent.prop("flippable", true)
+	
 	if (parent.hasClass("drawn")) {
 		parent.draggable({
-				containment: ".gameboard",
-				snap: ".gameboard",
-				revert: true,
-				revertDuration: 0
+			containment: ".gameboard",
+			snap: ".gameboard",
+			revert: true,
+			revertDuration: 0
 		}).droppable()
 
-		removeDrawn(uiId)
 		allDrawn.pop()
 		fillDrawn()
+		removeDrawn(uiId)
 	}
-	if (ui.draggable.hasClass("stacks")) {
+
+	if (ui.draggable.hasClass("stacks") || ui.draggable.hasClass("drawn")) {
 
 		const $div = $("<div>").addClass("card").attr("id", uiId)
 		$div.css("background-image", `url(Images/${uiId}.jpg)`).draggable({
@@ -288,13 +286,13 @@ const cardDrop = (event, ui) => {
 		$(event.target).append($div)
 		ui.draggable.remove()
 	} else {
-		ui.draggable.removeClass("drawn")
 		$(event.target).append(ui.draggable)
 	}
 
 	loseKing(uiId)
 	$(event.target).droppable("disable")
 }
+
 
 const addDroppableRow = (i) => {
 
@@ -375,7 +373,7 @@ const fillDrawn = () => {
 			addFillDrawn(allDrawn[allDrawn.length - i], childId)
 		}
 
-		$(`#${allDrawn[allDrawn.length - 3]}`).draggable({
+		$(`#${allDrawn[allDrawn.length - 1]}`).draggable({
 				containment: ".gameboard",
 				snap: ".gameboard",
 				revert: true,
@@ -383,7 +381,6 @@ const fillDrawn = () => {
 		})
 	}
 }
-
 
 const deckCount = () => {
 	$(".counter").text(`Deck: ${pile.length}`)
@@ -409,6 +406,7 @@ const resetDeck = async () => {
 	allDrawn = []
 	await drawDrawn(allDrawn.length)
 	await addPileDeck(cardCounter)
+	await pileList("deck")
 }
 
 const showDrawn = async () => {
@@ -451,28 +449,27 @@ const showDrawn = async () => {
 ///////////////////////
 
 const addStack = (event, ui) => {
+	
 	let parent = ui.draggable.parent()
 	let id = parent.attr("id")
 	let uiId = ui.draggable.attr("id")
 
-	if (parent.length === 1) {
-		parent.droppable("enable")
-	}
-	if (parent.hasClass("card")) {
-		parent.prop("flippable", true)
-	}
+	parent.droppable("enable")
+	parent.prop("flippable", true)
+	
 	if (parent.hasClass("drawn")) {
 		parent.draggable({
-				containment: ".gameboard",
-				snap: ".gameboard",
-				revert: true,
-				revertDuration: 0
+			containment: ".gameboard",
+			snap: ".gameboard",
+			revert: true,
+			revertDuration: 0
 		}).droppable()
-
-		removeDrawn(uiId)
+		
 		allDrawn.pop()
 		fillDrawn()
+		removeDrawn(uiId)
 	}
+
 
 	const $div = $("<div>").addClass("card").attr("id", uiId).addClass("stacks")
 	$div.css("background-image", `url(Images/${uiId}.jpg)`).draggable({
