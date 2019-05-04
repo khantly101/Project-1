@@ -15,6 +15,9 @@ https://wireframepro.mockflow.com/view/M30ca88a05336fc7cc0f0d288215b0edd15557939
 Api 
 https://deckofcardsapi.com/
 
+Cross-origin requests
+https://cors-anywhere.herokuapp.com/
+
 JQuery ui - for drag and drop
 https://code.jquery.com/ui/
 
