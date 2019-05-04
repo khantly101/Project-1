@@ -41,6 +41,8 @@ Unsolved issues
 
 - Clicking too fast on the deck icon to draw cards may cause duplicate cards and too many draws and break the game. I am unsure if the one() method fully solves this issue. It may appear again at anytime, iono it hates me.
 
+- Heroku app may block player from playing if too many games are played in a row.
+
 To do
 
 extra
