@@ -825,13 +825,3 @@ const startGame = async () => {
 	await pileList("deck")
 	$("#deck").one("click", showDrawn)
 }
-
-
-////////////////////////
-// Ready funtion //
-///////////////////////
-
-$(()=>{
-
-
-})
