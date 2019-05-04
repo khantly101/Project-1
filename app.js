@@ -732,7 +732,7 @@ const pageRight = () => {
 	$(".prev").off()
 	$(".next").off()
 
-	$(`.page${tutorialPage}`).hide()
+	$(`.page${tutorialPage}`).hide("slide", {direction: "left"}, 500)
 
 	if (tutorialPage === 2) {
 		tutorialPage = 0
@@ -740,7 +740,7 @@ const pageRight = () => {
 		tutorialPage += 1
 	}
 
-	$(`.page${tutorialPage}`).show("slide", {direction: "right"}, 1000)
+	$(`.page${tutorialPage}`).delay(520).show("slide", {direction: "right"}, 500)
 
 	$(".prev").on("click", pageLeft)
 	$(".next").on("click", pageRight)
@@ -751,7 +751,7 @@ const pageLeft = () => {
 	$(".prev").off()
 	$(".next").off()
 
-	$(`.page${tutorialPage}`).hide()
+	$(`.page${tutorialPage}`).hide("slide", {direction: "right"}, 500)
 
 	if (tutorialPage === 0) {
 		tutorialPage = 2
@@ -759,7 +759,7 @@ const pageLeft = () => {
 		tutorialPage -= 1
 	}
 
-	$(`.page${tutorialPage}`).show("slide", {direction: "left"}, 1000)
+	$(`.page${tutorialPage}`).delay(520).show("slide", {direction: "left"}, 500)
 
 	$(".prev").on("click", pageLeft)
 	$(".next").on("click", pageRight)
