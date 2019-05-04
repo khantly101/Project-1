@@ -28,7 +28,7 @@ https://github.com/peterkhayes/solitaireVictory
 -advance css will be drag and drop for moving cards around
 
 Instructions
-Avoid rapid clicking
+Avoid double clicking
 
 On phone, for best experience play horizontal
 
@@ -36,7 +36,6 @@ https://bicyclecards.com/how-to-play/solitaire/
 
 
 To do
--Add Instructions
 
 extra
 -Add animation
@@ -47,3 +46,4 @@ Done
 -Add timer
 -Add local storage for scores and times
 -Add windows solitaire win animation
+-Add Instructions

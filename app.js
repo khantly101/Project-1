@@ -473,7 +473,7 @@ const showDrawn = async () => {
 
 	await pileList("deck")
 	await deckCount()
-	$("#deck").on("click", showDrawn)
+	$("#deck").one("click", showDrawn)
 }
 
 ////////////////////////
@@ -823,7 +823,7 @@ const startGame = async () => {
 	}
 
 	await pileList("deck")
-	$("#deck").on("click", showDrawn)
+	$("#deck").one("click", showDrawn)
 }
 
 
