@@ -742,8 +742,8 @@ const pageRight = () => {
 
 	$(`.page${tutorialPage}`).delay(520).show("slide", {direction: "right"}, 500)
 
-	$(".prev").on("click", pageLeft)
-	$(".next").on("click", pageRight)
+	$(".prev").one("click", pageLeft)
+	$(".next").one("click", pageRight)
 }
 
 const pageLeft = () => {
@@ -761,8 +761,8 @@ const pageLeft = () => {
 
 	$(`.page${tutorialPage}`).delay(520).show("slide", {direction: "left"}, 500)
 
-	$(".prev").on("click", pageLeft)
-	$(".next").on("click", pageRight)
+	$(".prev").one("click", pageLeft)
+	$(".next").one("click", pageRight)
 }
 
 ////////////////////////
