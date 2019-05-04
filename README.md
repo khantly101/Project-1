@@ -28,12 +28,15 @@ https://github.com/peterkhayes/solitaireVictory
 -advance css will be drag and drop for moving cards around
 
 Instructions
-Avoid double clicking
+- Avoid double clicking
 
-On phone, for best experience play horizontal
+- On phone, for best experience play horizontal
 
 https://bicyclecards.com/how-to-play/solitaire/
 
+Unsolved issues
+
+- Clicking too fast on the deck icon to draw cards may cause duplicate cards and too many draws and break the game. I am unsure if the one() method fully solves this issue. It may appear again at anytime, iono it hates me.
 
 To do
 
