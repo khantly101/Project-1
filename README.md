@@ -6,12 +6,6 @@ Play solitaire and other card games
 Link
 https://khantly101.github.io/Project-1/
 
-User stories
-https://trello.com/b/5e1OBcCQ/project-1
-
-Wireframe
-https://wireframepro.mockflow.com/view/M30ca88a05336fc7cc0f0d288215b0edd1555793951974
-
 Api 
 https://deckofcardsapi.com/
 
@@ -40,16 +34,3 @@ https://bicyclecards.com/how-to-play/solitaire/
 Unsolved issues
 
 - Heroku app may block player from playing if too many games are played in a row.
-
-To do
-
-extra
--Add animation
-
-Done
--Basic framework for solitaire
--Add restart button
--Add timer
--Add local storage for scores and times
--Add windows solitaire win animation
--Add Instructions
